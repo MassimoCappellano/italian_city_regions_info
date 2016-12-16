@@ -1,0 +1,10 @@
+<div class="page-header">
+            <h1>Users</h1>
+</div>
+
+<table class="table table-striped">
+<tr><th>ID</th><th>USERNAME</th><th>EMAIL</th><th>DATE REG</th><th>IS_ACTIVE</th></tr>
+	{{#each users}}
+    	<tr><td>{{ID}}</td><td>{{USERNAME}}</td><td>{{EMAIL}}</td><td>{{formatDate DATE_REG 'IT'}}</td><td>{{#if IS_ACTIVE}}<span style="color: green">ATTIVO</span>{{else}}<span style="color: red">NON ATTIVO</span>{{/if}}</td></tr>
+    {{/each}}
+</table>

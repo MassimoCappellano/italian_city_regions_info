@@ -1,0 +1,10 @@
+div.error {
+		text-align: center; 
+		background: #B0B0B0; 
+		color: #222;
+	}
+
+.error h1 {
+        font-size: 80px;
+        margin-bottom: 0;
+    }
