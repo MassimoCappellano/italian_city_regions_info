@@ -4,54 +4,6 @@ const Assets = require('./handlers/assets');
 
 const fc = require('./find_comune');
 
-function myAnalisiReply(reply) {
-	return function (err, words) {
-
-	let results = [];
-
-	let numResults = words.length;
-
-	if(numResults === 0){
-		return reply(results);
-	}
-
-	for(let i = 0; i < words.length; i++){
-		let obj = words[i];
-
-		let key = obj.key;
-		let codComune = obj.value;
-
-		key = key.replace('comuni:', '');
-
-		const PX = fc.getComuneInfoByCodComune(codComune);
-
-		PX.done(
-			function (content) {
-				results.push({
-					k: key, 
-					v: codComune, 
-					pro: content.provincia_code }); 
-                
-				if(results.length === numResults){
-					// return response
-					return reply(results);
-				}
-
-			}, function (error) {
-				console.log('FOUND ERROR: ', error);
-				--numResults;
-			}
-		);
-		
-	}
-
-	// console.log(results);
-
-    
-	};
-
-}
-
 module.exports = [{
 	method: 'GET',
 	path: '/',
@@ -60,32 +12,31 @@ module.exports = [{
 	}
 }, {
 	method: 'GET',
-	path: '/comuniAll',
+	path: '/comuni',
 	handler: function (request, reply) {
-		let q = '';
+		let query = '';
 
 		if(request.query.q)
-			q = request.query.q;
+			query = request.query.q;
 
-		return fc.findComuni(q, myAnalisiReply(reply));
+		const P = fc.findComuni(query);
+
+		P.done(function(content) {
+			return reply(content.map((item) => {
+					let obj = {};
+					obj.n = item.name;
+					obj.c = item.code;
+					obj.pc = item.provincia_code;
+
+					return obj;
+					}));
+		}, function(error) {
+   			return reply(error);
+		});
 
 	}
 },
 {
-	method: 'GET',
-	path: '/comuni',
-	handler: function (request, reply) {
-
-		return reply([{
-			    "id": "1",
-			    "value": "West Side Story"
-			  },
-			  {
-			    "id": "2",
-			    "value": "Lawrence of Arabia"
-			   }]);
-	}
-}, {
 	method: 'GET',
 	path: '/{params*}',
 	config: { auth: false },

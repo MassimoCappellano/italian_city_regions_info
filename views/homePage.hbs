@@ -9,13 +9,13 @@
 				$( document ).ready(function() {
 
     				var bestPictures = new Bloodhound({
-  						datumTokenizer: Bloodhound.tokenizers.obj.whitespace('k'),
+  						datumTokenizer: Bloodhound.tokenizers.obj.whitespace('n'),
   						queryTokenizer: Bloodhound.tokenizers.whitespace,
-  						prefetch: '/comuniAll',
+  						prefetch: '/comuni',
 					  
 					  remote: {
 					    // url: '/data/films/queries/%QUERY.json',
-					    url: '/comuniAll?q=%QUERY',
+					    url: '/comuni?q=%QUERY',
 					    wildcard: '%QUERY'
 					  }
 					 
@@ -23,7 +23,7 @@
 
 				$('#remote .typeahead').typeahead(null, {
 				  name: 'best-pictures',
-				  display: 'k',
+				  display: 'n',
 				  source: bestPictures
 					});
 				});

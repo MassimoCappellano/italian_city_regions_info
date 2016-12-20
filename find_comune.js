@@ -103,16 +103,75 @@ ac.getComuneInfoByCodComune = function (code) {
 	});
 };
 
-ac.findComuni = function (word, callback) {
-  var words = [];
-  var key = 'comuni:' + word.trim();
-  db.createReadStream({ start: key, end: key + '\xff' })
-    .on('data', function (data) {
-      words.push(data);
-    })
-    .on('end', function () {
-      callback(null, words);
-    });
+ac.getProvinciaInfoByCodComune = function (code) {
+
+	return new Promise(function(resolve, reject) {
+		
+    	const result = {};
+
+		const P = ac.getComuneByCode(code).then( function (content) {
+
+			if(content.name){
+				result.name = content.name;
+				result.code = code;
+				result.provincia_id = content.provincia_id;
+			
+				return ac.getProvinciaByCode(result.provincia_id);
+			} 
+				
+			
+			// resolve(result.provincia_id);
+		}).then( function (content) {
+
+			if(result.name){
+				result.provincia_name = content.name;
+				result.provincia_code = content.code;
+				result.regione_id = content.regione_id;
+
+				return ac.getRegioneByCode(result.regione_id);
+			}
+			// resolve(result);
+		}, function(err){
+			console.log('CATCHED ERR HERE: ' + err);
+		}).then( function(content) {
+						if(result.name){
+							result.regione_name = content;
+							resolve(result);
+						} else {
+							reject('NOT FOUND CODE ' + code);
+						}
+						
+					}, function(err) {
+						console.log(err);
+					});
+
+
+	});
+};
+
+ac.findComuni = function (word, resolve, reject) {
+
+	return new Promise( function (resolve, reject){
+	  let codesMunicipality = [];
+	  let key = 'comuni:' + word.trim();
+
+	  db.createReadStream({ start: key, end: key + '\xff' })
+	    .on('data', function (data) {
+	      codesMunicipality.push(data);
+	    })
+	    .on('end', function () {
+	      resolve(codesMunicipality);
+	    });
+	}).then(function (codesMunicipality) {
+		
+		var arrP = [];
+		for (let i = 0; i < codesMunicipality.length; i++){
+			let keyMunicipality = codesMunicipality[i].value;
+			arrP.push(ac.getProvinciaInfoByCodComune(keyMunicipality));
+		}
+
+		return Promise.all(arrP);
+	});
 };
 
 module.exports = ac;
