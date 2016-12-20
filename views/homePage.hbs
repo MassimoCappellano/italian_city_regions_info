@@ -1,35 +1,34 @@
 <div class="page-header">
-            <h1>HOME PAGE</h1>
+    <h1>HOME PAGE</h1>
 
-            <div id="remote">
-  				<input class="typeahead" type="text" placeholder="Oscar winners for Best Picture">
-			</div>
-			<script>
+    <div id="remote">
+			<input class="typeahead" type="text" placeholder="Comune di residenza">
+	</div>
+	<script>
 
-				$( document ).ready(function() {
+		$( document ).ready(function() {
 
-    				var bestPictures = new Bloodhound({
-  						datumTokenizer: Bloodhound.tokenizers.obj.whitespace('n'),
-  						queryTokenizer: Bloodhound.tokenizers.whitespace,
-  						prefetch: '/comuni',
-					  
-					  remote: {
-					    // url: '/data/films/queries/%QUERY.json',
-					    url: '/comuni?q=%QUERY',
-					    wildcard: '%QUERY'
-					  }
-					 
-				});
+			var municipalities = new Bloodhound({
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('n'),
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					prefetch: '/comuni',
+			  
+			  remote: {
+			    url: '/comuni?q=%QUERY',
+			    wildcard: '%QUERY'
+			  }
+			 
+		});
 
-				$('#remote .typeahead').typeahead(null, {
-				  name: 'best-pictures',
-				  display: 'n',
-				  source: bestPictures
-					});
-				});
+		$('#remote .typeahead').typeahead(null, {
+		  name: 'municipalities',
+		  display: 'n',
+		  source: municipalities
+			});
+		});
 
-				
+		
 
-			</script>
+	</script>
 
 </div>
