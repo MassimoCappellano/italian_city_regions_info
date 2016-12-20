@@ -1,0 +1,14 @@
+https://maps.googleapis.com/maps/api/geocode/json?address=Busto+Arsizio,+VA,+IT&key=AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+
+https://maps.googleapis.com/maps/api/geocode/json?address=Lombardia,+IT&key=AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+
+Città Varese
+------------
+https://maps.googleapis.com/maps/api/geocode/json?address=Varese,+IT&key=AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+
+Provincia di Varese
+-------------------
+https://maps.googleapis.com/maps/api/geocode/json?address=VA,+IT&key=AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+
+
+
