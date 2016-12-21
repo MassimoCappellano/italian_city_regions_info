@@ -1,0 +1,64 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Ferno",
+               "short_name" : "Ferno",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Provincia di Varese",
+               "short_name" : "VA",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lombardia",
+               "short_name" : "Lombardia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Italia",
+               "short_name" : "IT",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "21010",
+               "short_name" : "21010",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "21010 Ferno VA, Italia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.63416369999999,
+                  "lng" : 8.7784896
+               },
+               "southwest" : {
+                  "lat" : 45.6061066,
+                  "lng" : 8.7066842
+               }
+            },
+            "location" : {
+               "lat" : 45.6227133,
+               "lng" : 8.728237499999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.63416369999999,
+                  "lng" : 8.7784896
+               },
+               "southwest" : {
+                  "lat" : 45.6061066,
+                  "lng" : 8.7066842
+               }
+            }
+         },
+         "place_id" : "ChIJx1rm-rhhhkcRAN1mLgJ4BgQ",
+         "types" : [ "administrative_area_level_3", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

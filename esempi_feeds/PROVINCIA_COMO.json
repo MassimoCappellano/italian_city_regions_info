@@ -1,0 +1,54 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Provincia di Como",
+               "short_name" : "CO",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lombardia",
+               "short_name" : "Lombardia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Italia",
+               "short_name" : "IT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Provincia di Como, Italia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 46.2395544,
+                  "lng" : 9.440817800000001
+               },
+               "southwest" : {
+                  "lat" : 45.6397384,
+                  "lng" : 8.8935168
+               }
+            },
+            "location" : {
+               "lat" : 45.8080416,
+               "lng" : 9.0851793
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 46.2395544,
+                  "lng" : 9.440817800000001
+               },
+               "southwest" : {
+                  "lat" : 45.6397384,
+                  "lng" : 8.8935168
+               }
+            }
+         },
+         "place_id" : "ChIJ5xiBf5QjhEcRMH5mLgJ4BgM",
+         "types" : [ "administrative_area_level_2", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,54 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Provincia di Novara",
+               "short_name" : "NO",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Piemonte",
+               "short_name" : "Piemonte",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Italia",
+               "short_name" : "IT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Provincia di Novara, Italia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.8767872,
+                  "lng" : 8.842910900000001
+               },
+               "southwest" : {
+                  "lat" : 45.2916032,
+                  "lng" : 8.3105802
+               }
+            },
+            "location" : {
+               "lat" : 45.5485133,
+               "lng" : 8.5150793
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.8767872,
+                  "lng" : 8.842910900000001
+               },
+               "southwest" : {
+                  "lat" : 45.2916032,
+                  "lng" : 8.3105802
+               }
+            }
+         },
+         "place_id" : "ChIJ2xgl4f5nhkcRkH08R33mBQM",
+         "types" : [ "administrative_area_level_2", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

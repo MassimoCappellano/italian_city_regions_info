@@ -1,0 +1,54 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Città Metropolitana di Milano",
+               "short_name" : "MI",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lombardia",
+               "short_name" : "Lombardia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Italia",
+               "short_name" : "IT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Città Metropolitana di Milano, Italia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.6426684,
+                  "lng" : 9.551578599999999
+               },
+               "southwest" : {
+                  "lat" : 45.161534,
+                  "lng" : 8.7061099
+               }
+            },
+            "location" : {
+               "lat" : 45.458626,
+               "lng" : 9.181873
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.6426684,
+                  "lng" : 9.551578599999999
+               },
+               "southwest" : {
+                  "lat" : 45.2649877,
+                  "lng" : 8.7061104
+               }
+            }
+         },
+         "place_id" : "ChIJlduiODLChkcRUH5mLgJ4BgM",
+         "types" : [ "administrative_area_level_2", "political" ]
+      }
+   ],
+   "status" : "OK"
+}

@@ -1,0 +1,54 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Provincia di Mantova",
+               "short_name" : "MN",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lombardia",
+               "short_name" : "Lombardia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Italia",
+               "short_name" : "IT",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Provincia di Mantova, Italia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.4281063,
+                  "lng" : 11.4277056
+               },
+               "southwest" : {
+                  "lat" : 44.9083042,
+                  "lng" : 10.3092922
+               }
+            },
+            "location" : {
+               "lat" : 45.1667728,
+               "lng" : 10.7753613
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.4281063,
+                  "lng" : 11.4277056
+               },
+               "southwest" : {
+                  "lat" : 44.9083042,
+                  "lng" : 10.3092922
+               }
+            }
+         },
+         "place_id" : "ChIJhwO4Bh3WgUcRoH5mLgJ4BgM",
+         "types" : [ "administrative_area_level_2", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
