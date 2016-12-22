@@ -1,24 +1,27 @@
-https://maps.googleapis.com/maps/api/geocode/json?address=Busto+Arsizio,+VA,+IT&key=AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+EXAMPLES
+----------
 
-https://maps.googleapis.com/maps/api/geocode/json?address=Lombardia,+IT&key=AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+https://maps.googleapis.com/maps/api/geocode/json?address=Busto+Arsizio,+VA,+IT&key=<GMAP_KEY>
+
+https://maps.googleapis.com/maps/api/geocode/json?address=Lombardia,+IT&key=<GMAP_KEY>
 
 Città Varese
 ------------
-https://maps.googleapis.com/maps/api/geocode/json?address=Varese,+IT&key=AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+https://maps.googleapis.com/maps/api/geocode/json?address=Varese,+IT&key=<GMAP_KEY>
 
 Provincia di Varese
 -------------------
-https://maps.googleapis.com/maps/api/geocode/json?address=VA,+IT&key=AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+https://maps.googleapis.com/maps/api/geocode/json?address=VA,+IT&key=<GMAP_KEY>
 
 Provincia di Novara
 -------------------
-https://maps.googleapis.com/maps/api/geocode/json?address=NO,+IT&key=AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+https://maps.googleapis.com/maps/api/geocode/json?address=NO,+IT&key=<GMAP_KEY>
 
 
 REVERSE GEOCODING
 -----------------
 
-https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=<GMAP_KEY>
 
 
 
