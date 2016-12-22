@@ -9,7 +9,7 @@ function xtest(){
 
 }
 
-xtest('find elenco regioni', function(t) {
+test('find elenco regioni', function(t) {
 	mo.getElencoRegioni().done(
 			function (results) {
 				console.log(results);
@@ -22,7 +22,7 @@ xtest('find elenco regioni', function(t) {
 	t.end();
 });
 
-xtest('find elenco province \'Lombardia\' code: 3', function(t) {
+test('find elenco province \'Lombardia\' code: 3', function(t) {
 	mo.getProvinceByCodeRegione(3).done(
 		function (results) {
 				console.log(results);
@@ -36,7 +36,7 @@ xtest('find elenco province \'Lombardia\' code: 3', function(t) {
 });
 
 
-xtest('find elenco province by invalid code regione: 5555', function(t) {
+test('find elenco province by invalid code regione: 5555', function(t) {
 	mo.getProvinceByCodeRegione(5555).done(
 		function (results) {
 				console.log(results);

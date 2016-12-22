@@ -9,7 +9,9 @@ var file = __dirname + '/data/comuni_italiani.json';
 
 var level = require('level');
 
-var db = level(path.join(__dirname, '/db'));
+var db = level(path.join(__dirname, '/db'), {
+				valueEncoding : 'json' 
+			});
 
 jsonfile.readFile(file, function(err, obj) {
   // console.dir(obj)
@@ -26,16 +28,20 @@ jsonfile.readFile(file, function(err, obj) {
 		let key = 'regioni:' + value.fields.name;
 		let valueR = value.pk;
 		
-		console.log('reg: %s -> %s', key, valueR);
+		let objReg = { value: valueR };
+
+		console.log('reg: %s -> ', key, objReg);
 		
-		batch.put(key, valueR);
+		batch.put(key, objReg);
 
 		let keyInv = 'inv:regioni:' + value.pk;
 		let valueInv = value.fields.name;
 		
-		console.log('reg inv: %s -> %s', keyInv, valueInv);
+		let objRegInv = { value: valueInv };
 
-		batch.put(keyInv, valueInv);
+		console.log('reg inv: %s -> ', keyInv, objRegInv);
+
+		batch.put(keyInv, objRegInv);
 		
 		/*
 			let regione = new model.Regione({ pk: value.pk, name: value.fields.name });
@@ -49,7 +55,7 @@ jsonfile.readFile(file, function(err, obj) {
 		let key = 'province:' + value.fields.name;
 		let valueP = value.pk;
 
-		batch.put(key, valueP);
+		batch.put(key, { value: valueP });
 		
 		let keyInv = 'inv:province:' + value.pk;
 		let name = value.fields.name;
@@ -62,9 +68,9 @@ jsonfile.readFile(file, function(err, obj) {
 			regione_id: regione_id
 		};
 		
-		console.log('prov: %s -> %s', keyInv, JSON.stringify(obj));
+		console.log('prov: %s -> ', keyInv, obj);
 		
-		batch.put(keyInv,  JSON.stringify(obj));
+		batch.put(keyInv,  obj);
 
 		/*
   		let provincia = new model.Provincia({ pk: value.pk, name: value.fields.name, 
@@ -99,9 +105,9 @@ jsonfile.readFile(file, function(err, obj) {
 			popolazione: popolazione
 		};
 		
-		console.log('comuni inv: %s -> %s', keyInv, JSON.stringify(obj));
+		console.log('comuni inv: %s -> ', keyInv, obj);
 		
-		batch.put(keyInv,  JSON.stringify(obj));
+		batch.put(keyInv,  obj);
 
 		/*
   		let comune = new model.Comune({ pk: value.pk, name: value.fields.name, provincia_id: value.fields.provincia, 

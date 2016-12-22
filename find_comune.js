@@ -5,7 +5,9 @@ const Promise = require("bluebird");
 const level = require('level');
 const path 	= require('path');
 
-const db = level(path.join(__dirname,'/db'));
+const db = level(path.join(__dirname, '/db'), {
+				valueEncoding : 'json' 
+			});
 
 var ac = {};
 
@@ -28,7 +30,7 @@ ac.getComuneByCode = function (code) {
 		    }
 		    
 		  } else {
-	  		resolve(JSON.parse(value));
+	  		resolve(value);
 		  }
 		
 		});
@@ -41,7 +43,7 @@ ac.getProvinciaByCode = function (code) {
 			if(err){
 				reject(err);
 			} else {
-				resolve(JSON.parse(value));
+				resolve(value);
 			}
 		});
 	});
@@ -86,7 +88,7 @@ ac.getComuneInfoByCodComune = function (code) {
 					const PR = ac.getRegioneByCode(content.regione_id);
 
 					PR.done(function(content){
-						result.regione_name = content;
+						result.regione_name = content.value;
 						resolve(result);
 					}, function(error) {
 						reject(error);
@@ -135,7 +137,7 @@ ac.getProvinciaInfoByCodComune = function (code) {
 			console.log('CATCHED ERR HERE: ' + err);
 		}).then( function(content) {
 						if(result.name){
-							result.regione_name = content;
+							result.regione_name = content.value;
 							resolve(result);
 						} else {
 							reject('NOT FOUND CODE ' + code);

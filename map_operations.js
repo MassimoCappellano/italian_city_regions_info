@@ -5,7 +5,9 @@ const Promise = require("bluebird");
 const level = require('level');
 const path 	= require('path');
 
-const db = level(path.join(__dirname,'/db'));
+const db = level(path.join(__dirname, '/db'), {
+				valueEncoding : 'json' 
+			});
 
 var ac = {};
 
@@ -48,14 +50,14 @@ ac.getProvinceByCodeRegione = function (codRegione) {
 
 	  db.createReadStream({ start: key, end: key + '\xff' })
 	    .on('data', function (data) {
-	      arrProv.push(data);
+	       arrProv.push(data);
 	    })
 	    .on('end', function () {
 	      resolve(arrProv);
 	    });
 	}).then( function (results) {
 		return results.map( (item) => {
-			let objProv = JSON.parse(item.value);
+			let objProv = item.value;
 			objProv.provincia_id = item.key.replace('inv:province:', '');
 			return objProv;
 		});
@@ -96,7 +98,7 @@ ac.getComuniByCodeProvincia = function (codProvincia) {
 	    });
 	}).then( function (results) {
 		return results.map( (item) => {
-			let objMun = JSON.parse(item.value);
+			let objMun = item.value;
 			objMun.comune_id = item.key.replace('inv:comuni:', '');
 			return objMun;
 		});
