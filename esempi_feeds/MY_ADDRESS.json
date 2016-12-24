@@ -1,0 +1,65 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "6",
+               "short_name" : "6",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Via Ottorino Respighi",
+               "short_name" : "Via Ottorino Respighi",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Cascina Elisa",
+               "short_name" : "Cascina Elisa",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Provincia di Varese",
+               "short_name" : "VA",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lombardia",
+               "short_name" : "Lombardia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Italia",
+               "short_name" : "IT",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "21017",
+               "short_name" : "21017",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "Via Ottorino Respighi, 6, 21017 Cascina Elisa VA, Italia",
+         "geometry" : {
+            "location" : {
+               "lat" : 45.6043753,
+               "lng" : 8.796061699999999
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.6057242802915,
+                  "lng" : 8.797410680291502
+               },
+               "southwest" : {
+                  "lat" : 45.6030263197085,
+                  "lng" : 8.794712719708498
+               }
+            }
+         },
+         "partial_match" : true,
+         "place_id" : "ChIJdUQKaliKhkcRblmeE8Xk-GU",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "status" : "OK"
+}

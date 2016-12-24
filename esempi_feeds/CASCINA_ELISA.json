@@ -1,0 +1,64 @@
+{
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Cascina Elisa",
+               "short_name" : "Cascina Elisa",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Provincia di Varese",
+               "short_name" : "VA",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Lombardia",
+               "short_name" : "Lombardia",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "Italia",
+               "short_name" : "IT",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "21017",
+               "short_name" : "21017",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "21017 Cascina Elisa VA, Italia",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.6073597,
+                  "lng" : 8.8061203
+               },
+               "southwest" : {
+                  "lat" : 45.6016796,
+                  "lng" : 8.792100999999999
+               }
+            },
+            "location" : {
+               "lat" : 45.604671,
+               "lng" : 8.800233
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.6073597,
+                  "lng" : 8.8061203
+               },
+               "southwest" : {
+                  "lat" : 45.6016796,
+                  "lng" : 8.792100999999999
+               }
+            }
+         },
+         "place_id" : "ChIJA9zWuFeKhkcRB4sIjRld3Ho",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
