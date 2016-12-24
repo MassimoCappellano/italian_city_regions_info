@@ -48,12 +48,167 @@ exports.getRegionCoordinates = function (regionName) {
 			  }
 
 
-			  console.log(result.results);
-			  console.log('address_components:', result.results[0].address_components);
-			  console.log('formatted_address:', result.results[0].formatted_address);
-			  console.log('geometry:', result.results[0].geometry);
+			  if(result.status != 'OK') {
+			  	let errorMsg = 'STATUS: \'' + result.status + '\' FOR REGION \'' + regionName + '\'';
+			  	return reject(errorMsg);
+			  }
 
-			  return resolve(result.results[0].geometry);
+			  for(let elem of result.results) {
+			  	let objRes = {};
+
+			  	/*
+					place_id: 'ChIJf4M-GsNEgUcR1JMVKCIm8qY',
+    				types: [ 'administrative_area_level_1', 'political' ] 
+			  	*/
+
+			  	let types = elem.types;
+
+			  	if( types.includes('administrative_area_level_1')){
+
+			  		objRes.place_id = elem.place_id;
+			  		objRes.geomerty = elem.geometry;
+
+			  		return resolve(objRes);
+			  	}
+
+			  }
+			  
+			  // if nothing found 
+			  let errorMsg = 'NOT REGION FOUND FOR \'' + regionName + '\'';
+			  return reject(errorMsg);
+
+			});
+
+	});
+
+};
+
+
+exports.getProvinceCoordinates = function (provinceName) {
+
+	return new Promise( function( resolve, reject) {
+
+			// geocode API
+			var geocodeParamsProv = {
+			  "address":    provinceName + ", IT",
+			  "components": "components=country:IT",
+			  "language":   "it",
+			  "region":     "it"
+			};
+
+			gmAPI.geocode(geocodeParamsProv, function(err, result){
+
+			  /*
+				{ results:
+			   		[ { address_components: [Object],
+			       formatted_address: '21017 Samarate VA, Italia',
+			       geometry: [Object],
+			       place_id: 'ChIJkVjwFxOKhkcRbfhmH_LQCJw',
+			       types: [Object] } ],
+			  	status: 'OK' }
+
+			  */
+
+			  if (err) {
+			  	return reject(err);
+			  }
+
+
+			  if(result.status != 'OK') {
+			  	let errorMsg = 'STATUS: \'' + result.status + '\' FOR PROVINCE \'' + provinceName + '\'';
+			  	return reject(errorMsg);
+			  }
+
+			  for(let elem of result.results) {
+			  	let objRes = {};
+
+			  	/*
+					place_id: 'ChIJf4M-GsNEgUcR1JMVKCIm8qY',
+    				types: [ 'administrative_area_level_1', 'political' ] 
+			  	*/
+
+			  	let types = elem.types;
+
+			  	if( types.includes('administrative_area_level_2')){
+
+			  		objRes.place_id = elem.place_id;
+			  		objRes.geomerty = elem.geometry;
+
+			  		return resolve(objRes);
+			  	}
+
+			  }
+			  
+			  // if nothing found 
+			  let errorMsg = 'NOT PROVINCE FOUND FOR \'' + provinceName + '\'';
+			  return reject(errorMsg);
+
+			});
+
+	});
+
+};
+
+exports.getMunicipalityCoordinates = function (municipalityName, provinceName) {
+
+	return new Promise( function( resolve, reject) {
+
+			// geocode API
+			var geocodeParamsMunicipality = {
+			  "address":    'città ' + municipalityName + ' ' + provinceName + ", IT",	
+			  "components": "components=country:IT",
+			  "language":   "it",
+			  "region":     "it"
+			};
+
+			gmAPI.geocode(geocodeParamsMunicipality, function(err, result){
+
+			  /*
+				{ results:
+			   		[ { address_components: [Object],
+			       formatted_address: '21017 Samarate VA, Italia',
+			       geometry: [Object],
+			       place_id: 'ChIJkVjwFxOKhkcRbfhmH_LQCJw',
+			       types: [Object] } ],
+			  	status: 'OK' }
+
+			  */
+
+			  if (err) {
+			  	return reject(err);
+			  }
+
+
+			  if(result.status != 'OK') {
+			  	let errorMsg = 'STATUS: \'' + result.status + '\' FOR MUNICIPALITY \'' + municipalityName + '\' FOR PROVINCE \'' + provinceName + '\'';
+			  	return reject(errorMsg);
+			  }
+
+
+        	  for(let elem of result.results) {
+
+			  	let objRes = {};
+
+			  	/*
+					place_id: 'ChIJf4M-GsNEgUcR1JMVKCIm8qY',
+    				types: [ 'administrative_area_level_1', 'political' ] 
+			  	*/
+
+			  	let types = elem.types;
+
+			  	if( types.includes('locality')){
+
+			  		objRes.place_id = elem.place_id;
+			  		objRes.geomerty = elem.geometry;
+
+			  		return resolve(objRes);
+			  	}
+
+			  }
+			  
+			  // if nothing found 
+			  let errorMsg = 'NOT MUNICIPALITY FOUND FOR \'' + municipalityName + '\' IN PROVINCE ' + provinceName + '\'';
+			  return reject(errorMsg);
 
 			});
 

@@ -7,7 +7,7 @@ https://maps.googleapis.com/maps/api/geocode/json?address=Lombardia,+IT&key=<GMA
 
 Città Varese
 ------------
-https://maps.googleapis.com/maps/api/geocode/json?address=Varese,+IT&key=<GMAP_KEY>
+https://maps.googleapis.com/maps/api/geocode/json?address=città+Varese,+IT&key=<GMAP_KEY>
 
 Provincia di Varese
 -------------------
@@ -17,6 +17,9 @@ Provincia di Novara
 -------------------
 https://maps.googleapis.com/maps/api/geocode/json?address=NO,+IT&key=<GMAP_KEY>
 
+MY ADDRESS
+-----------
+https://maps.googleapis.com/maps/api/geocode/json?address=Via+Ottorino+Respigni+6,+Samarate,+VA,+IT&key=<GMAP_KEY>
 
 REVERSE GEOCODING
 -----------------

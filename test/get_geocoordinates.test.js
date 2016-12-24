@@ -5,6 +5,10 @@ const test = require('tape');
 const getGeoCoordinates = require('../geo/get_geocoordinates');
 
 
+function xtest() {
+
+}
+
 /*
 
 	[ { key: 'Abruzzo', value: { value: 13 } },
@@ -30,12 +34,12 @@ const getGeoCoordinates = require('../geo/get_geocoordinates');
 
   */
 
-test('get coordinate region', function(t) {
+xtest('get coordinate region', function(t) {
 
 	getGeoCoordinates.getRegionCoordinates('Lombardia').done(
 			function (result) {
 
-				console.log( '>>>>>>: ', result);
+				console.log( 'OK: >>: ', result);
 
 			},
 			function (error) {
@@ -45,4 +49,106 @@ test('get coordinate region', function(t) {
 		);
 	t.end();
 });
+
+
+xtest('get coordinate region NOT EXISTENT', function(t) {
+
+	getGeoCoordinates.getRegionCoordinates('LombardiaAAAAAA').done(
+			function (result) {
+
+				console.log( '>>>>>>: ', result);
+
+			},
+			function (error) {
+
+				console.log('IN ERROR', error);
+			}
+		);
+	t.end();
+});
+
+xtest('get coordinate NOT region name', function(t) {
+
+	getGeoCoordinates.getRegionCoordinates('Samarate').done(
+			function (result) {
+
+				console.log( '>>>>>>: ', result);
+
+			},
+			function (error) {
+
+				console.log('IN ERROR', error);
+			}
+		);
+	t.end();
+});
+
+
+xtest('get coordinate province name', function(t) {
+
+	getGeoCoordinates.getProvinceCoordinates('VA').done(
+			function (result) {
+
+				console.log( '>>>>>>: ', result);
+
+			},
+			function (error) {
+
+				console.log('IN ERROR', error);
+			}
+		);
+	t.end();
+});
+
+
+xtest('get coordinate NOT province name', function(t) {
+
+	getGeoCoordinates.getProvinceCoordinates('Samarate').done(
+			function (result) {
+
+				console.log( '>>>>>>: ', result);
+
+			},
+			function (error) {
+
+				console.log('IN ERROR', error);
+			}
+		);
+	t.end();
+});
+
+test('get coordinate municipality', function(t) {
+
+	getGeoCoordinates.getMunicipalityCoordinates('Samarate', 'VA').done(
+			function (result) {
+
+				console.log( '>>>>>>: ', result);
+
+			},
+			function (error) {
+
+				console.log('IN ERROR', error);
+			}
+		);
+	t.end();
+});
+
+test('get coordinate municipality Varese', function(t) {
+
+	getGeoCoordinates.getMunicipalityCoordinates('Varese', 'VA').done(
+			function (result) {
+
+				console.log( '>>>>>>: ', result);
+
+			},
+			function (error) {
+
+				console.log('IN ERROR', error);
+			}
+		);
+	t.end();
+});
+
+
+
 
