@@ -2,12 +2,7 @@
 
 const Promise = require("bluebird");
 
-const level = require('level');
-const path 	= require('path');
-
-const db = level(path.join(__dirname, '/db'), {
-				valueEncoding : 'json' 
-			});
+const db = require('./db_creator').getDb();
 
 var ac = {};
 
@@ -175,6 +170,10 @@ ac.findComuni = function (word, resolve, reject) {
 		return Promise.all(arrP);
 	});
 };
+
+ac.getDB = function() {
+	return db;
+}
 
 module.exports = ac;
 

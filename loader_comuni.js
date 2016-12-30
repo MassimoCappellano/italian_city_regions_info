@@ -5,13 +5,9 @@ var util = require('util');
 
 var path = require('path');
 
-var file = __dirname + '/data/comuni_italiani.json';
+var file = path.join(__dirname, '/data/comuni_italiani.json');
 
-var level = require('level');
-
-var db = level(path.join(__dirname, '/db'), {
-				valueEncoding : 'json' 
-			});
+const db = require('./db_creator').getDb();
 
 jsonfile.readFile(file, function(err, obj) {
   // console.dir(obj)

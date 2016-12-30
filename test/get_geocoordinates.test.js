@@ -117,7 +117,7 @@ xtest('get coordinate NOT province name', function(t) {
 	t.end();
 });
 
-test('get coordinate municipality', function(t) {
+xtest('get coordinate municipality', function(t) {
 
 	getGeoCoordinates.getMunicipalityCoordinates('Samarate', 'VA').done(
 			function (result) {
@@ -133,7 +133,7 @@ test('get coordinate municipality', function(t) {
 	t.end();
 });
 
-test('get coordinate municipality Varese', function(t) {
+xtest('get coordinate municipality Varese', function(t) {
 
 	getGeoCoordinates.getMunicipalityCoordinates('Varese', 'VA').done(
 			function (result) {
@@ -144,6 +144,39 @@ test('get coordinate municipality Varese', function(t) {
 			function (error) {
 
 				console.log('IN ERROR', error);
+			}
+		);
+	t.end();
+});
+
+
+test('get coordinate region Sicilia', function(t) {
+
+	getGeoCoordinates.getRegionCoordinates('Sicilia').done(
+			function (result) {
+
+				console.log( 'OK: >>: ', result);
+
+			},
+			function (error) {
+
+				console.log(error);
+			}
+		);
+	t.end();
+});
+
+test('get coordinate region Sardegna', function(t) {
+
+	getGeoCoordinates.getRegionCoordinates('Sardegna').done(
+			function (result) {
+
+				console.log( 'OK: >>: ', result);
+
+			},
+			function (error) {
+
+				console.log(error);
 			}
 		);
 	t.end();

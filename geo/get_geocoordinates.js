@@ -63,10 +63,10 @@ exports.getRegionCoordinates = function (regionName) {
 
 			  	let types = elem.types;
 
-			  	if( types.includes('administrative_area_level_1')){
+			  	if( types.includes('administrative_area_level_1') || types.includes('natural_feature')){
 
 			  		objRes.place_id = elem.place_id;
-			  		objRes.geomerty = elem.geometry;
+			  		objRes.geometry = elem.geometry;
 
 			  		return resolve(objRes);
 			  	}
@@ -132,7 +132,7 @@ exports.getProvinceCoordinates = function (provinceName) {
 			  	if( types.includes('administrative_area_level_2')){
 
 			  		objRes.place_id = elem.place_id;
-			  		objRes.geomerty = elem.geometry;
+			  		objRes.geometry = elem.geometry;
 
 			  		return resolve(objRes);
 			  	}
@@ -199,7 +199,7 @@ exports.getMunicipalityCoordinates = function (municipalityName, provinceName) {
 			  	if( types.includes('locality')){
 
 			  		objRes.place_id = elem.place_id;
-			  		objRes.geomerty = elem.geometry;
+			  		objRes.geometry = elem.geometry;
 
 			  		return resolve(objRes);
 			  	}
