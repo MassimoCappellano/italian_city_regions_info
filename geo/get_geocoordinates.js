@@ -47,7 +47,6 @@ exports.getRegionCoordinates = function (regionName) {
 			  	return reject(err);
 			  }
 
-
 			  if(result.status != 'OK') {
 			  	let errorMsg = 'STATUS: \'' + result.status + '\' FOR REGION \'' + regionName + '\'';
 			  	return reject(errorMsg);
@@ -62,7 +61,7 @@ exports.getRegionCoordinates = function (regionName) {
 			  	*/
 
 			  	let types = elem.types;
-
+			  	// || types.includes('natural_feature')
 			  	if( types.includes('administrative_area_level_1') || types.includes('natural_feature')){
 
 			  		objRes.place_id = elem.place_id;

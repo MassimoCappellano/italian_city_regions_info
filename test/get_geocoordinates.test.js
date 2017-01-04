@@ -34,7 +34,7 @@ function xtest() {
 
   */
 
-xtest('get coordinate region', function(t) {
+test('get coordinate region', function(t) {
 
 	getGeoCoordinates.getRegionCoordinates('Lombardia').done(
 			function (result) {
@@ -150,7 +150,7 @@ xtest('get coordinate municipality Varese', function(t) {
 });
 
 
-test('get coordinate region Sicilia', function(t) {
+xtest('get coordinate region Sicilia', function(t) {
 
 	getGeoCoordinates.getRegionCoordinates('Sicilia').done(
 			function (result) {
