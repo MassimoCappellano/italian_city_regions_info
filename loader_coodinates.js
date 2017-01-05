@@ -190,41 +190,47 @@ function getComuniCoordByCodeRegione(codeRegion){
 					});
 				}).then( function (listMunicipalities) {
 
-					return Promise.map(listMunicipalities, function(municipality){
+					var flatListMunicipalities = [].concat.apply([], listMunicipalities);
 
-							console.log(municipality);
+					return Promise.map(flatListMunicipalities, function(municipality) {
 
 							var comune_id = municipality.comune_id;
 
-						    getGeoCoordinates.getMunicipalityCoordinates(municipality.name, municipality.codeProvince).catch( function ignore(err) {
-						    	console.log(err);
-						    }).then(
+							if(! municipality.place_id) {
 
-										function (coordMunicipality) {
+								 console.log('--->>>>>> CALLING ', municipality.name, municipality.codeProvince);
+								 
+								 getGeoCoordinates.getMunicipalityCoordinates(municipality.name, municipality.codeProvince).catch( function ignore(err) {
+						    		console.log('++++ ERROR', err);
+								    	}).then(
 
-											if(coordMunicipality) {
-												let keyInv = 'inv:comuni:' + comune_id;
+												function (coordMunicipality) {
+													console.log('****', coordMunicipality);
 
-												let objMun = municipality;
-												// attach coord
-												objMun.place_id = coordMunicipality.place_id;
-												objMun.geometry = coordMunicipality.geometry;
+													if(coordMunicipality) {
+														let keyInv = 'inv:comuni:' + comune_id;
 
-												console.log('PUTTING:>>>', keyInv, '----->', objMun);
+														let objMun = municipality;
+														// attach coord
+														objMun.place_id = coordMunicipality.place_id;
+														objMun.geometry = coordMunicipality.geometry;
 
-											    db.put(keyInv, objMun);
+														console.log('PUTTING:>>>', keyInv, '----->', objMun);
 
-											}
+													    db.put(keyInv, objMun);
 
-											
-										},
-										function (error) {
-											console.log('ERROR GETTING GET_PROVINCE_BY_CODE:', error);
-										}
+													}
 
-						);
+													
+												}
 
-					   
+								);
+
+
+							} else {
+								console.log(municipality.name, '-', municipality.codeProvince, 'PLACE_ID:', municipality.place_id);
+
+							}
 
 					}).then(function() {
 						console.log('ALL DONE LOAD COORD MUNICIPALITIES!!!');
