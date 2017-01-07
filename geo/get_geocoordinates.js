@@ -154,7 +154,7 @@ exports.getMunicipalityCoordinates = function (municipalityName, provinceName) {
 
 			// geocode API
 			var geocodeParamsMunicipality = {
-			  "address":    'città ' + municipalityName + ' ' + provinceName + ", IT",	
+			  "address":    '' + municipalityName + ' ' + provinceName + ", IT",	
 			  "components": "components=country:IT",
 			  "language":   "it",
 			  "region":     "it"
@@ -177,6 +177,7 @@ exports.getMunicipalityCoordinates = function (municipalityName, provinceName) {
 			  	return reject(err);
 			  }
 
+			  // console.log(result);
 
 			  if(result.status != 'OK') {
 			  	let errorMsg = 'STATUS: \'' + result.status + '\' FOR MUNICIPALITY \'' + municipalityName + '\' FOR PROVINCE \'' + provinceName + '\'';
@@ -185,6 +186,8 @@ exports.getMunicipalityCoordinates = function (municipalityName, provinceName) {
 
 
         	  for(let elem of result.results) {
+
+        	  	// console.log(elem);
 
 			  	let objRes = {};
 
@@ -195,7 +198,7 @@ exports.getMunicipalityCoordinates = function (municipalityName, provinceName) {
 
 			  	let types = elem.types;
 
-			  	if( types.includes('locality')){
+			  	if( types.includes('locality') || types.includes('administrative_area_level_3') || types.includes('city_hall')){
 
 			  		objRes.place_id = elem.place_id;
 			  		objRes.geometry = elem.geometry;

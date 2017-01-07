@@ -28,6 +28,11 @@ ac.getElencoRegioni = function (resolve, reject) {
 	});
 };
 
+ac.getRegioneFromCode = function (codeRegione) {
+
+   console.log('TODO FOUND REGIONE FROM CODE:', codeRegione);
+};
+
 /*
 	return arr objs:	{
 			name: name,

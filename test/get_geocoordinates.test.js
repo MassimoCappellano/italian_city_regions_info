@@ -34,7 +34,7 @@ function xtest() {
 
   */
 
-test('get coordinate region', function(t) {
+xtest('get coordinate region', function(t) {
 
 	getGeoCoordinates.getRegionCoordinates('Lombardia').done(
 			function (result) {
@@ -166,7 +166,7 @@ xtest('get coordinate region Sicilia', function(t) {
 	t.end();
 });
 
-test('get coordinate region Sardegna', function(t) {
+xtest('get coordinate region Sardegna', function(t) {
 
 	getGeoCoordinates.getRegionCoordinates('Sardegna').done(
 			function (result) {
@@ -182,6 +182,43 @@ test('get coordinate region Sardegna', function(t) {
 	t.end();
 });
 
+xtest('get coordinate municipality', function(t) {
+
+	getGeoCoordinates.getMunicipalityCoordinates('Biassono', 'MB').done(
+			function (result) {
+
+				console.log( '>>>>>>: ', result);
+
+			},
+			function (error) {
+
+				console.log('IN ERROR', error);
+			}
+		);
+	t.end();
+});
+
+// Oggiona con Santo Stefano
+
+test('get coordinate municipality Oggiona con Santo Stefano', function(t) {
+
+	getGeoCoordinates.getMunicipalityCoordinates('Oggiona con Santo Stefano', 'VA').done(
+			function (result) {
+
+				console.log( '>>>>>>: ', result);
+
+			},
+			function (error) {
+
+				console.log('IN ERROR', error);
+			}
+		);
+	t.end();
+});
 
 
-
+/*
+	++++ ERROR NOT MUNICIPALITY FOUND FOR 'Dello' IN PROVINCE BS'
+	++++ ERROR NOT MUNICIPALITY FOUND FOR 'Borgo San Giovanni' IN PROVINCE LO'
+	++++ ERROR NOT MUNICIPALITY FOUND FOR 'Tronzano Lago Maggiore' IN PROVINCE VA'
+*/
