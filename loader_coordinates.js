@@ -250,6 +250,9 @@ function getComuniCoordByCodeRegione(codeRegion){
 
 									 			let keyInv = 'inv:comuni:' + objMun.comune_id;
 
+									 			// now redundant information
+									 			delete objMun.comune_id;
+
 												console.log('PUTTING:>>>', keyInv, '----->', objMun);
 
 									   			return dbPutPromise(db, keyInv, objMun);
