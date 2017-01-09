@@ -200,7 +200,7 @@ xtest('get coordinate municipality', function(t) {
 
 // Oggiona con Santo Stefano
 
-test('get coordinate municipality Oggiona con Santo Stefano', function(t) {
+xtest('get coordinate municipality Oggiona con Santo Stefano', function(t) {
 
 	getGeoCoordinates.getMunicipalityCoordinates('Oggiona con Santo Stefano', 'VA').done(
 			function (result) {
@@ -222,3 +222,29 @@ test('get coordinate municipality Oggiona con Santo Stefano', function(t) {
 	++++ ERROR NOT MUNICIPALITY FOUND FOR 'Borgo San Giovanni' IN PROVINCE LO'
 	++++ ERROR NOT MUNICIPALITY FOUND FOR 'Tronzano Lago Maggiore' IN PROVINCE VA'
 */
+
+
+
+/*
+	++++ ERROR NOT MUNICIPALITY FOUND FOR 'Padova' IN PROVINCE PD'
+	++++ ERROR NOT MUNICIPALITY FOUND FOR 'Venezia' IN PROVINCE VE'
+	++++ ERROR NOT MUNICIPALITY FOUND FOR 'Rovigo' IN PROVINCE RO'
+
+*/
+
+test('get coordinate municipality Padova', function(t) {
+
+	getGeoCoordinates.getMunicipalityCoordinates('Padova', 'PD').done(
+			function (result) {
+
+				console.log( '>>>>>>: ', result);
+
+			},
+			function (error) {
+
+				console.log('IN ERROR', error);
+			}
+		);
+	
+	t.end();
+});

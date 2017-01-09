@@ -154,7 +154,7 @@ exports.getMunicipalityCoordinates = function (municipalityName, provinceName) {
 
 			// geocode API
 			var geocodeParamsMunicipality = {
-			  "address":    '' + municipalityName + ' ' + provinceName + ", IT",	
+			  "address":    'città ' + municipalityName + ' ' + provinceName + ", IT",	
 			  "components": "components=country:IT",
 			  "language":   "it",
 			  "region":     "it"

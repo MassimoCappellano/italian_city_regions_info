@@ -13,6 +13,21 @@ const level = require('level');
 
 const db = require('./db_creator').getDb();
 
+function dbPutPromise(db, key, value){
+	return new Promise( function(resolve, reject) {
+
+		    db.put(key, value, function (err) {
+
+		    	if(err){
+		    		return reject( {key: key, err: err} );
+		    	}
+
+		    	resolve({ key: key});
+		    });
+    		
+		});
+}
+
 function doLoadCoordRegions() {
 
 	mo.getElencoRegioni().then(
@@ -182,59 +197,82 @@ function getComuniCoordByCodeRegione(codeRegion){
 					var totalMunicipalities = flatListMunicipalities.length;
 
 					listMunicipalities = flatListMunicipalities.filter(function (municipality) {
+						
 						if(! municipality.place_id) {
 							return municipality;
 						}
-					});
-
-					console.log('MUNICIPALITIES to load COORD:', listMunicipalities.length, 'OF', totalMunicipalities);
-
-					return Promise.map(listMunicipalities, function(municipality) {
-
-							var comune_id = municipality.comune_id;
-
-							console.log('--->>>>>> CALLING ', municipality.name, municipality.codeProvince);
-								 
-							return getGeoCoordinates.getMunicipalityCoordinates(municipality.name, municipality.codeProvince).catch( function ignore(err) {
-					    			console.log('++++ ERROR', err);	
-					    		}).then( function ( coordMunicipality ){
-
-							 		if(coordMunicipality){
-							 			// enrich
-							 			let objMun = municipality;
-										// attach coord
-										objMun.place_id = coordMunicipality.place_id;
-										objMun.geometry = coordMunicipality.geometry;
-
-							 			return objMun;
-							 		}
-
-							});
-							
-
-					}).then(function(arrMunicipalitiesWithCoord) {
-						console.log('ALL DONE LOAD COORD MUNICIPALITIES!!!');
-
-						Promise.map(arrMunicipalitiesWithCoord, function (coordMunicipality) {
-
-							console.log('****', coordMunicipality);
-
-							if(coordMunicipality) {
-								let keyInv = 'inv:comuni:' + coordMunicipality.comune_id;
-
-								console.log('PUTTING:>>>', keyInv, '----->', coordMunicipality);
-
-							    db.put(keyInv, coordMunicipality);
-
-							}
-
-							
-						}).then(function(){
-							console.log('NOW  LOADED ON DB!!!');
-						});
-
 						
 					});
+
+					console.log('MUNICIPALITIES to load COORD:', listMunicipalities.length, 'OF', totalMunicipalities); 
+
+
+					// do block of for example 50
+					var blockListMunicipalities = [];
+
+					const lengthBlock = 10;
+					var currentIndex = 0;
+
+					listMunicipalities.forEach(function ( elem ) {
+
+						if(blockListMunicipalities[currentIndex] != undefined && 
+								blockListMunicipalities[currentIndex].length == lengthBlock) {
+							currentIndex ++;
+						} 
+
+						if(blockListMunicipalities[currentIndex] == undefined){
+							blockListMunicipalities[currentIndex] = [];
+						}
+
+						blockListMunicipalities[currentIndex].push(elem);
+
+					});
+
+					return Promise.mapSeries(blockListMunicipalities , function(listMunicipalities) {
+
+							console.log(listMunicipalities);
+
+							return Promise.map(listMunicipalities, function(municipality){
+								var comune_id = municipality.comune_id;
+
+								console.log('--->>>>>> CALLING ', municipality.name, municipality.codeProvince);
+
+								return getGeoCoordinates.getMunicipalityCoordinates(municipality.name, municipality.codeProvince).catch( function ignore(err) {
+					    					console.log('++++ ERROR', err);	
+							    		}).then( function ( coordMunicipality ){
+
+									 		if(coordMunicipality){
+									 			// enrich
+									 			let objMun = municipality;
+												// attach coord
+												objMun.place_id = coordMunicipality.place_id;
+												objMun.geometry = coordMunicipality.geometry;
+
+									 			let keyInv = 'inv:comuni:' + objMun.comune_id;
+
+												console.log('PUTTING:>>>', keyInv, '----->', objMun);
+
+									   			return dbPutPromise(db, keyInv, objMun);
+
+									 		}
+
+									});
+
+							});
+
+					}).then(function (loaded) {
+							console.log('NOW  LOADED ON DB!!!');
+                            console.log('N° BLOCKS: ', loaded.length);
+
+							loaded.forEach( function(block) {
+								console.log(block);
+							});
+
+							console.log('**********************************');
+
+						}, function (errors) {
+							console.log('ERRORS:', errors);
+						});
 
 				});
 
@@ -247,7 +285,6 @@ function getComuniCoordByCodeRegione(codeRegion){
 	
 }
 
-	
 
 
 
@@ -274,5 +311,12 @@ function getComuniCoordByCodeRegione(codeRegion){
 // ac.getProvinceByCodeRegione
 
 // lombardia - 3 FATTO
+// Piemonte - 1 - ULTTIMARE CASI SOSPESI
 
- getComuniCoordByCodeRegione(1);
+// Veneto - 5 - FATTO
+
+// Lazio -12
+
+// Sicilia - 19 - ULTIMARE
+
+ getComuniCoordByCodeRegione(19);
