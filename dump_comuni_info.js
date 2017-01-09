@@ -13,6 +13,16 @@ const db = require('./db_creator').getDb();
 
 const fs = require('fs');
 
+function checkDirectorySync(directory) {  
+  try {
+    fs.statSync(directory);
+  } catch(e) {
+    fs.mkdirSync(directory);
+  }
+}
+
+checkDirectorySync("./output");  
+
 var wstream = fs.createWriteStream('./output/comuni_italiani_with_coords.json');
 
 function dbGetPromise(value, key) {
