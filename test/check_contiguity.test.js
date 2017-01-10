@@ -72,6 +72,8 @@ test('test SAMARATE - FERNO', function(t) {
 	var bRes = checkContiguity.checkContiguity(area1, area2);
 
 	console.log(area1, area2, ' --> ', bRes);
+
+   t.equal(true, bRes);
 	t.end();
 });
 
@@ -98,6 +100,8 @@ test('test SAMARATE - VARESE', function(t) {
 	var bRes = checkContiguity.checkContiguity(area1, area2);
 
 	console.log(area1, area2, ' --> ', bRes);
+
+   t.equal(false, bRes);
 	t.end();
 });
 
@@ -125,6 +129,8 @@ test('test FERNO - VARESE', function(t) {
 	var bRes = checkContiguity.checkContiguity(area1, area2);
 
 	console.log(area1, area2, ' --> ', bRes);
+
+   t.equal(false, bRes);
 	t.end();
 });
 
@@ -151,9 +157,10 @@ test('test SAMARATE - LOMBARDIA', function(t) {
 
 	var bRes = checkContiguity.checkContiguity(area1, area2);
 
-	console.log(area2)
-	console.log(area1)
-	console.log( ' --> ', bRes);
+	console.log(area2);
+	console.log(area1);
+
+	t.equal( true, bRes);
 	t.end();
 });
 
@@ -175,13 +182,14 @@ test('test SAMARATE - P COMO', function(t) {
 
 	*/
 	// P COMO
-	const area2 = buildArea({lat: 46.2395544, lng: 9.440817800000001 }, {lat: 44.6796491, lng: 8.4978605 }); 
+	const area2 = buildArea({lat: 46.2395544, lng: 9.440817800000001 }, {lat: 45.6397384, lng: 8.8935168 }); 
 
 	var bRes = checkContiguity.checkContiguity(area1, area2);
 
-	console.log(area2)
-	console.log(area1)
-	console.log( ' --> ', bRes);
+	console.log(area2);
+   console.log(area1);
+
+	t.equal(false, bRes);
 	t.end();
 });
 
@@ -218,13 +226,14 @@ test('test P VARESE - P COMO', function(t) {
 
 	*/
 	// P COMO
-	const area2 = buildArea({lat: 46.2395544, lng: 9.440817800000001 }, {lat: 44.6796491, lng: 8.4978605 }); 
+	const area2 = buildArea({lat: 46.2395544, lng: 9.440817800000001 }, {lat: 45.6397384, lng: 8.8935168 }); 
 
 	var bRes = checkContiguity.checkContiguity(area1, area2);
 
-	console.log(area2)
-	console.log(area1)
-	console.log( ' --> ', bRes);
+	console.log(area2);
+	console.log(area1);
+
+	t.equal( true, bRes);
 	t.end();
 });
 
@@ -265,11 +274,90 @@ test('test P VARESE - P MANTOVA', function(t) {
 
 	var bRes = checkContiguity.checkContiguity(area1, area2);
 
-	console.log(area2)
-	console.log(area1)
-	console.log( ' --> ', bRes);
+	console.log(area2);
+	console.log(area1);
+
+	t.equal( false, bRes);
 	t.end();
 });
+
+/*
+LIGURIA vs LOMBARDIA
+
+"bounds": {
+    "northeast": {
+     "lat": 44.6764264,
+     "lng": 10.0710317
+    },
+    "southwest": {
+     "lat": 43.7596721,
+     "lng": 7.4948099
+    }
+   },
+
+
+   "bounds": {
+    "northeast": {
+     "lat": 46.6351853,
+     "lng": 11.4276993
+    },
+    "southwest": {
+     "lat": 44.6796491,
+     "lng": 8.4978605
+    }
+   },
+
+
+*/
+
+test('test LIGURIA - LOMBARDIA', function(t) {
+
+   /*
+      
+     "bounds": {
+    "northeast": {
+     "lat": 44.6764264,
+     "lng": 10.0710317
+    },
+    "southwest": {
+     "lat": 43.7596721,
+     "lng": 7.4948099
+    }
+   },
+   */
+
+   // LIGURIA
+    
+   const area1 = buildArea({lat: 44.6764264, lng: 10.0710317 }, {lat: 43.7596721, lng: 7.4948099 });
+
+   /*
+   "bounds": {
+    "northeast": {
+     "lat": 46.6351853,
+     "lng": 11.4276993
+    },
+    "southwest": {
+     "lat": 44.6796491,
+     "lng": 8.4978605
+    }
+   },
+
+   */
+   // LOMBARDIA
+   const area2 = buildArea({lat: 46.6351853, lng: 11.4276993 }, {lat: 44.6796491, lng: 8.4978605 }); 
+
+   var bRes = checkContiguity.checkContiguity(area1, area2);
+
+   console.log(area2);
+   console.log(area1);
+
+   t.equal(true, bRes);
+   t.end();
+});
+
+
+
+
 
 
 
