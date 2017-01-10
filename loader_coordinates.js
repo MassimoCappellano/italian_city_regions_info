@@ -235,7 +235,7 @@ function getComuniCoordByCodeRegione(codeRegion){
 							return Promise.map(listMunicipalities, function(municipality){
 								var comune_id = municipality.comune_id;
 
-								console.log('--->>>>>> CALLING ', municipality.name, municipality.codeProvince);
+								console.log('--->>>>>> CALLING:', municipality.name, municipality.codeProvince);
 
 								return getGeoCoordinates.getMunicipalityCoordinates(municipality.name, municipality.codeProvince).catch( function ignore(err) {
 					    					console.log('++++ ERROR', err);	
@@ -314,12 +314,40 @@ function getComuniCoordByCodeRegione(codeRegion){
 // ac.getProvinceByCodeRegione
 
 // lombardia - 3 FATTO
-// Piemonte - 1 - ULTTIMARE CASI SOSPESI
+// Piemonte - 1 - FATTO
 
 // Veneto - 5 - FATTO
 
 // Lazio -12
 
-// Sicilia - 19 - ULTIMARE
+// Sicilia - 19 - OK
 
- getComuniCoordByCodeRegione(19);
+// Trentino - 4 - OK
+
+// Emilia Romagna - 8 
+
+// Liguria - 7 
+
+// Friuli - 6
+
+// Toscana - 9
+
+// Campania - 15
+
+ getComuniCoordByCodeRegione(11);
+
+ // Pugliav - 16
+
+ // Umbria
+
+ // Valle d'Aosta - 2
+
+ // Marche - 11 - QUERY LIMIT
+
+ // Calabria
+
+ // Sardegna
+
+ // Abruzzo
+
+

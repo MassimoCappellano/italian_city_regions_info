@@ -42,7 +42,7 @@ function checkContinuityInt(bounds1, bounds2) {
 	const lngE = parseFloat(bounds1.northeast.lng.toFixed(2));
 	const lngW = parseFloat(bounds1.southwest.lng.toFixed(2));
 
-	console.log('latN: ', latN, ', latS: ', latS, ', lngE: ', lngE, ', lngW: ', lngW);
+	// console.log('latN: ', latN, ', latS: ', latS, ', lngE: ', lngE, ', lngW: ', lngW);
 
 	if( checkIfInside(latN, latS, lngE, lngW, v1) || 
 		checkIfInside(latN, latS, lngE, lngW, v2) || 
