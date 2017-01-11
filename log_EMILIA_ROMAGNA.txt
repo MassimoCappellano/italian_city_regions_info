@@ -1,0 +1,25 @@
+LOADING DB_CREATOR..............
+AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+DOING REQUEST, RN: PC KR: 33
+DOING REQUEST, RN: PR KR: 34
+DOING REQUEST, RN: RE KR: 35
+DOING REQUEST, RN: MO KR: 36
+DOING REQUEST, RN: BO KR: 37
+DOING REQUEST, RN: FE KR: 38
+DOING REQUEST, RN: RA KR: 39
+DOING REQUEST, RN: FC KR: 40
+DOING REQUEST, RN: RN KR: 99
+MUNICIPALITIES to load COORD: 1 OF 334
+[ { name: 'Polesine Zibello',
+    provincia_id: 34,
+    altitudine: null,
+    superficie: null,
+    popolazione: 3348,
+    comune_id: '8069',
+    codeProvince: 'PR' } ]
+--->>>>>> CALLING  Polesine Zibello PR
+++++ ERROR STATUS: 'ZERO_RESULTS' FOR MUNICIPALITY 'Polesine Zibello' FOR PROVINCE 'PR'
+NOW  LOADED ON DB!!!
+N° BLOCKS:  1
+[ undefined ]
+**********************************

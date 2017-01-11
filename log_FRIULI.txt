@@ -1,0 +1,29 @@
+LOADING DB_CREATOR..............
+AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+DOING REQUEST, RN: UD KR: 30
+DOING REQUEST, RN: GO KR: 31
+DOING REQUEST, RN: TS KR: 32
+DOING REQUEST, RN: PN KR: 93
+MUNICIPALITIES to load COORD: 2 OF 216
+[ { name: 'Fiumicello',
+    provincia_id: 30,
+    altitudine: 6,
+    superficie: 23.24,
+    popolazione: 5021,
+    comune_id: '3624',
+    codeProvince: 'UD' },
+  { name: 'Valvasone Arzene',
+    provincia_id: 93,
+    altitudine: 59,
+    superficie: 29.68,
+    popolazione: 3967,
+    comune_id: '7284',
+    codeProvince: 'PN' } ]
+--->>>>>> CALLING  Fiumicello UD
+--->>>>>> CALLING  Valvasone Arzene PN
+++++ ERROR STATUS: 'ZERO_RESULTS' FOR MUNICIPALITY 'Valvasone Arzene' FOR PROVINCE 'PN'
+++++ ERROR NOT MUNICIPALITY FOUND FOR 'Fiumicello' IN PROVINCE UD'
+NOW  LOADED ON DB!!!
+N° BLOCKS:  1
+[ undefined, undefined ]
+**********************************

@@ -1,0 +1,53 @@
+LOADING DB_CREATOR..............
+AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+DOING REQUEST, RN: PO KR: 100
+DOING REQUEST, RN: MS KR: 45
+DOING REQUEST, RN: LU KR: 46
+DOING REQUEST, RN: PT KR: 47
+DOING REQUEST, RN: FI KR: 48
+DOING REQUEST, RN: LI KR: 49
+DOING REQUEST, RN: PI KR: 50
+DOING REQUEST, RN: AR KR: 51
+DOING REQUEST, RN: SI KR: 52
+DOING REQUEST, RN: GR KR: 53
+MUNICIPALITIES to load COORD: 4 OF 279
+[ { name: 'Montignoso',
+    provincia_id: 45,
+    altitudine: 130,
+    superficie: 16.74,
+    popolazione: 10226,
+    comune_id: '4274',
+    codeProvince: 'MS' },
+  { name: 'Castel San Niccolò',
+    provincia_id: 51,
+    altitudine: 380,
+    superficie: 83.27,
+    popolazione: 2739,
+    comune_id: '4443',
+    codeProvince: 'AR' },
+  { name: 'Pratovecchio Stia',
+    provincia_id: 51,
+    altitudine: 441,
+    superficie: 138.24,
+    popolazione: 6011,
+    comune_id: '4471',
+    codeProvince: 'AR' },
+  { name: 'Isola del Giglio',
+    provincia_id: 53,
+    altitudine: 405,
+    superficie: 24.01,
+    popolazione: 1418,
+    comune_id: '4519',
+    codeProvince: 'GR' } ]
+--->>>>>> CALLING  Montignoso MS
+--->>>>>> CALLING  Castel San Niccolò AR
+--->>>>>> CALLING  Pratovecchio Stia AR
+--->>>>>> CALLING  Isola del Giglio GR
+++++ ERROR STATUS: 'ZERO_RESULTS' FOR MUNICIPALITY 'Castel San Niccolò' FOR PROVINCE 'AR'
+++++ ERROR NOT MUNICIPALITY FOUND FOR 'Pratovecchio Stia' IN PROVINCE AR'
+++++ ERROR STATUS: 'ZERO_RESULTS' FOR MUNICIPALITY 'Montignoso' FOR PROVINCE 'MS'
+++++ ERROR NOT MUNICIPALITY FOUND FOR 'Isola del Giglio' IN PROVINCE GR'
+NOW  LOADED ON DB!!!
+N° BLOCKS:  1
+[ undefined, undefined, undefined, undefined ]
+**********************************

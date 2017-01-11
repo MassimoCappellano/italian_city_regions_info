@@ -1,0 +1,31 @@
+{
+  "licenseType": "Unknown",
+  "dc:description": "Confini delle province italiane aggiornati al 2011",
+  "exportable": true,
+  "defaultStyle": 1,
+  "dc:title": "Confini province italiane",
+  "attribution": "ISTAT",
+  "dc:modified": "2012-09-09T16:47:30Z",
+  "dc:identifier": "1FWBRtJ-Gy5YVVYym6OhRC_dya3j_9pGDrX4rJDE",
+  "tableSchema": {"columns": [
+    {
+      "datatype": "string",
+      "formatPattern": "<a href='%1$s'>%1$s<\/a>",
+      "name": "col0",
+      "validateData": false,
+      "title": "description"
+    },
+    {
+      "datatype": "location",
+      "name": "col1",
+      "validateData": false,
+      "title": "name"
+    },
+    {
+      "datatype": "location",
+      "name": "col2",
+      "validateData": false,
+      "title": "geometry"
+    }
+  ]}
+}

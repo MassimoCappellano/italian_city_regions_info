@@ -147,10 +147,15 @@ ac.getProvinciaInfoByCodComune = function (code) {
 };
 
 ac.findComuni = function (word, resolve, reject) {
+	word = word.trim();
+
+	if(word.length > 0){
+		word = word.charAt(0).toUpperCase() + word.slice(1)
+	}
 
 	return new Promise( function (resolve, reject){
 	  let codesMunicipality = [];
-	  let key = 'comuni:' + word.trim();
+	  let key = 'comuni:' + word;
 
 	  db.createReadStream({ start: key, end: key + '\xff' })
 	    .on('data', function (data) {

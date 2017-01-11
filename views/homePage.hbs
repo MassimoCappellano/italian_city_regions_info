@@ -4,31 +4,5 @@
     <div id="remote">
 			<input class="typeahead" type="text" placeholder="Comune di residenza">
 	</div>
-	<script>
-
-		$( document ).ready(function() {
-
-			var municipalities = new Bloodhound({
-					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('n'),
-					queryTokenizer: Bloodhound.tokenizers.whitespace,
-					prefetch: '/comuni',
-			  
-			  remote: {
-			    url: '/comuni?q=%QUERY',
-			    wildcard: '%QUERY'
-			  }
-			 
-		});
-
-		$('#remote .typeahead').typeahead(null, {
-		  name: 'municipalities',
-		  display: 'n',
-		  source: municipalities
-			});
-		});
-
-		
-
-	</script>
-
+	
 </div>

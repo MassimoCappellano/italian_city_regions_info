@@ -1,0 +1,42 @@
+LOADING DB_CREATOR..............
+AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+DOING REQUEST, RN: TO KR: 1
+DOING REQUEST, RN: VB KR: 103
+DOING REQUEST, RN: VC KR: 2
+DOING REQUEST, RN: NO KR: 3
+DOING REQUEST, RN: CN KR: 4
+DOING REQUEST, RN: AT KR: 5
+DOING REQUEST, RN: AL KR: 6
+DOING REQUEST, RN: BI KR: 96
+MUNICIPALITIES to load COORD: 3 OF 1202
+[ { name: 'Monasterolo di Savigliano',
+    provincia_id: 4,
+    altitudine: 291,
+    superficie: 14.91,
+    popolazione: 1357,
+    comune_id: '617',
+    codeProvince: 'CN' },
+  { name: 'Viale',
+    provincia_id: 5,
+    altitudine: 261,
+    superficie: 3.98,
+    popolazione: 261,
+    comune_id: '850',
+    codeProvince: 'AT' },
+  { name: 'Berzano di Tortona',
+    provincia_id: 6,
+    altitudine: 270,
+    superficie: 2.89,
+    popolazione: 171,
+    comune_id: '873',
+    codeProvince: 'AL' } ]
+--->>>>>> CALLING  Monasterolo di Savigliano CN
+--->>>>>> CALLING  Viale AT
+--->>>>>> CALLING  Berzano di Tortona AL
+++++ ERROR STATUS: 'ZERO_RESULTS' FOR MUNICIPALITY 'Viale' FOR PROVINCE 'AT'
+++++ ERROR STATUS: 'ZERO_RESULTS' FOR MUNICIPALITY 'Berzano di Tortona' FOR PROVINCE 'AL'
+++++ ERROR NOT MUNICIPALITY FOUND FOR 'Monasterolo di Savigliano' IN PROVINCE CN'
+NOW  LOADED ON DB!!!
+N° BLOCKS:  1
+[ undefined, undefined, undefined ]
+**********************************

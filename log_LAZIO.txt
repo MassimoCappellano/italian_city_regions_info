@@ -1,0 +1,30 @@
+LOADING DB_CREATOR..............
+AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+DOING REQUEST, RN: VT KR: 56
+DOING REQUEST, RN: RI KR: 57
+DOING REQUEST, RN: RM KR: 58
+DOING REQUEST, RN: LT KR: 59
+DOING REQUEST, RN: FR KR: 60
+MUNICIPALITIES to load COORD: 2 OF 378
+[ { name: 'Spigno Saturnia',
+    provincia_id: 59,
+    altitudine: 46,
+    superficie: 38.74,
+    popolazione: 2903,
+    comune_id: '4912',
+    codeProvince: 'LT' },
+  { name: 'Castrocielo',
+    provincia_id: 60,
+    altitudine: 250,
+    superficie: 27.92,
+    popolazione: 3969,
+    comune_id: '4936',
+    codeProvince: 'FR' } ]
+--->>>>>> CALLING  Spigno Saturnia LT
+--->>>>>> CALLING  Castrocielo FR
+++++ ERROR NOT MUNICIPALITY FOUND FOR 'Castrocielo' IN PROVINCE FR'
+++++ ERROR NOT MUNICIPALITY FOUND FOR 'Spigno Saturnia' IN PROVINCE LT'
+NOW  LOADED ON DB!!!
+N° BLOCKS:  1
+[ undefined, undefined ]
+**********************************

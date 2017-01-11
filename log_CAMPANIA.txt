@@ -1,0 +1,30 @@
+LOADING DB_CREATOR..............
+AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+DOING REQUEST, RN: CE KR: 61
+DOING REQUEST, RN: BN KR: 62
+DOING REQUEST, RN: NA KR: 63
+DOING REQUEST, RN: AV KR: 64
+DOING REQUEST, RN: SA KR: 65
+MUNICIPALITIES to load COORD: 2 OF 550
+[ { name: 'Piana di Monte Verna',
+    provincia_id: 61,
+    altitudine: 84,
+    superficie: 23.5,
+    popolazione: 2382,
+    comune_id: '5061',
+    codeProvince: 'CE' },
+  { name: 'Celle di Bulgheria',
+    provincia_id: 65,
+    altitudine: 234,
+    superficie: 31.62,
+    popolazione: 1968,
+    comune_id: '5435',
+    codeProvince: 'SA' } ]
+--->>>>>> CALLING  Piana di Monte Verna CE
+--->>>>>> CALLING  Celle di Bulgheria SA
+++++ ERROR NOT MUNICIPALITY FOUND FOR 'Celle di Bulgheria' IN PROVINCE SA'
+++++ ERROR NOT MUNICIPALITY FOUND FOR 'Piana di Monte Verna' IN PROVINCE CE'
+NOW  LOADED ON DB!!!
+N° BLOCKS:  1
+[ undefined, undefined ]
+**********************************
