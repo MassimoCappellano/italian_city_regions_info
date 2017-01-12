@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+ * @file Manages loading geo coordinates from GMap services into DB.
+ 
+ * @author Massimo Cappellano 
+ */
+
 const path = require('path');
 const mo = require('./map_operations');
 
@@ -28,15 +34,31 @@ function dbPutPromise(db, key, value){
 		});
 }
 
+/**
+	Load into DB geo coordinates of all regions.
+	<br>
+ 	<br>
+ 	If <strong>region.place_id</strong> is non enpty, geo request is not done.
+*/
+
 function doLoadCoordRegions() {
 
 	mo.getElencoRegioni().then(
 
-	       function (results) {
+	       function (regions) {
 				
 				// const batch = db.batch();
+				regions = regions.filter( function(region) {
+					
+					console.log(region.place_id);
 
-				Promise.map(results, function( region ) {
+					if( !region.place_id) {
+						console.log('ADD:', regions)
+						return region;
+					}
+				});
+
+				Promise.map(regions, function( region ) {
 					let nameRegion = region.key;
 					let keyRegion = region.value.value;
 
@@ -97,21 +119,42 @@ function doLoadCoordRegions() {
 
 }
 
-function getProvinceCoordByCodeRegion( codeRegion ) {
+/**
+ Load into DB geo coordinates of provinces selected by id region.
+ <br>
+ <br>
+  If <strong>province.place_id</strong> is non enpty, geo request is not done.
+
+ @function
+ @param {number} codeRegion Codice pk of region
+
+*/
+function doLoadCoordProvinceByCodeRegion( codeRegion ) {
 
 	mo.getProvinceByCodeRegione(codeRegion).then(
 			function (provinces) {
-				console.log(provinces);
+				
+				// do filtering
+
+				provinces = provinces.filter(function (province) {
+						
+						if(! province.place_id) {
+							return province;
+						}
+						
+					});
+
+				console.log('provinces: ', provinces);
 
 				Promise.map(provinces, function( province ) {
 
 					let codeProvince = province.code;
 					let keyProvince = province.provincia_id;
 
-					console.log('DOING REQUEST, RN:', codeProvince, 'KR:', keyProvince);
+					console.log('DOING REQUEST, codeProvince:', codeProvince, 'keyProvince:', keyProvince);
 
 					return getGeoCoordinates.getProvinceCoordinates(codeProvince).catch( function ignore(err) {
-						console.log(err);
+						console.log('++++ ERROR:', err);
 					}).then( function (coord) {
 						// for undefined
 						if(coord) {
@@ -123,7 +166,7 @@ function getProvinceCoordByCodeRegion( codeRegion ) {
 					});
 				}).then( function (coordinatesProvinces) {
 
-					console.log(coordinatesProvinces);
+					console.log('coordinatesProvinces:', coordinatesProvinces);
 
 					return Promise.map(coordinatesProvinces, function(provinceCoord){
 
@@ -169,7 +212,16 @@ function getProvinceCoordByCodeRegion( codeRegion ) {
 
 }
 
-function getComuniCoordByCodeRegione(codeRegion){
+/**
+	Load into DB geo coordinates of municipalities selected by id region.
+	<br>
+ 	<br>
+ 	If <strong>municipality.place_id</strong> is non enpty, geo request is not done.
+
+	@param {number} codeRegion Codice pk of region
+*/
+
+function doLoadCoordComuniByCodeRegion(codeRegion){
 
 	mo.getProvinceByCodeRegione(codeRegion).then(
 			function (provinces) {
@@ -308,11 +360,6 @@ function getComuniCoordByCodeRegione(codeRegion){
 // Trentino
 // getProvinceCoordByCodeRegion(4);
 
-// ac.getProvinceByCodeRegione
-
-
-// ac.getProvinceByCodeRegione
-
 // lombardia - 3 FATTO
 // Piemonte - 1 - FATTO
 
@@ -334,20 +381,34 @@ function getComuniCoordByCodeRegione(codeRegion){
 
 // Campania - 15
 
- getComuniCoordByCodeRegione(11);
+ // doLoadCoordComuniByCodeRegion(13);
 
  // Pugliav - 16
 
- // Umbria
+ // Umbria - 10
 
  // Valle d'Aosta - 2
 
- // Marche - 11 - QUERY LIMIT
+ // Marche - 11
 
- // Calabria
+ // Calabria - 18
 
- // Sardegna
+ // Sardegna - 20
 
- // Abruzzo
+ // Abruzzo - 13
 
+// ** MOLISE 14
+// ** BASILICATA 17
 
+// doLoadCoordProvinceByCodeRegion(12);
+
+// doLoadCoordProvinceByCodeRegion(3);
+
+const arrReg = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20];
+
+for (let i of arrReg){
+	console.log('REGION:', i);
+
+	doLoadCoordProvinceByCodeRegion(i);
+
+}

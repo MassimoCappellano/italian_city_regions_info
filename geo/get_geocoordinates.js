@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+ * Module for doing geo search from Google Map services.
+
+ * @module geo/get_geocoordinates
+ */
+
 const env = require('env2')('.env');
 
 const GoogleMapsAPI = require('googlemaps'); 
@@ -17,6 +23,13 @@ var publicConfig = {
 
 
 var gmAPI = new GoogleMapsAPI(publicConfig);
+
+/**
+ * Get coordinate for the region.
+ *
+ * @function
+ * @param {string} regionName - name of the region 
+ */
 
 exports.getRegionCoordinates = function (regionName) {
 
@@ -73,7 +86,7 @@ exports.getRegionCoordinates = function (regionName) {
 			  }
 			  
 			  // if nothing found 
-			  let errorMsg = 'NOT REGION FOUND FOR \'' + regionName + '\'';
+			  let errorMsg = 'NOT COORD FOUND FOR REGION \'' + regionName + '\'';
 			  return reject(errorMsg);
 
 			});
@@ -82,14 +95,19 @@ exports.getRegionCoordinates = function (regionName) {
 
 };
 
+/**
+ * Get coordinate for the province.
+ * @function 
+ * @param {string} codeProvince - code of the province
+ */
 
-exports.getProvinceCoordinates = function (provinceName) {
+exports.getProvinceCoordinates = function (codeProvince) {
 
 	return new Promise( function( resolve, reject) {
 
 			// geocode API
 			var geocodeParamsProv = {
-			  "address":    provinceName + ", IT",
+			  "address":    codeProvince + ", IT",
 			  "components": "components=country:IT",
 			  "language":   "it",
 			  "region":     "it"
@@ -114,7 +132,7 @@ exports.getProvinceCoordinates = function (provinceName) {
 
 
 			  if(result.status != 'OK') {
-			  	let errorMsg = 'STATUS: \'' + result.status + '\' FOR PROVINCE \'' + provinceName + '\'';
+			  	let errorMsg = 'STATUS: \'' + result.status + '\' FOR PROVINCE \'' + codeProvince + '\'';
 			  	return reject(errorMsg);
 			  }
 
@@ -139,7 +157,7 @@ exports.getProvinceCoordinates = function (provinceName) {
 			  }
 			  
 			  // if nothing found 
-			  let errorMsg = 'NOT PROVINCE FOUND FOR \'' + provinceName + '\'';
+			  let errorMsg = 'NOT COORD FOUND FOR PROVINCE \'' + codeProvince + '\'';
 			  return reject(errorMsg);
 
 			});
@@ -148,13 +166,20 @@ exports.getProvinceCoordinates = function (provinceName) {
 
 };
 
-exports.getMunicipalityCoordinates = function (municipalityName, provinceName) {
+/**
+ * Get coordinates for municipality
+ * @function
+ * @param {string} municipalityName - name of the municipality
+ * @param {string} codeProvince - code of province
+ */
+
+exports.getMunicipalityCoordinates = function (municipalityName, codeProvince) {
 
 	return new Promise( function( resolve, reject) {
 
 			// geocode API
 			var geocodeParamsMunicipality = {
-			  "address":    'città ' + municipalityName + ' ' + provinceName + ", IT",	
+			  "address":    'città ' + municipalityName + ' ' + codeProvince + ", IT",	
 			  "components": "components=country:IT",
 			  "language":   "it",
 			  "region":     "it"
@@ -180,7 +205,7 @@ exports.getMunicipalityCoordinates = function (municipalityName, provinceName) {
 			  // console.log(result);
 
 			  if(result.status != 'OK') {
-			  	let errorMsg = 'STATUS: \'' + result.status + '\' FOR MUNICIPALITY \'' + municipalityName + '\' FOR PROVINCE \'' + provinceName + '\'';
+			  	let errorMsg = 'STATUS: \'' + result.status + '\' FOR MUNICIPALITY \'' + municipalityName + '\' FOR PROVINCE \'' + codeProvince + '\'';
 			  	return reject(errorMsg);
 			  }
 
@@ -209,7 +234,7 @@ exports.getMunicipalityCoordinates = function (municipalityName, provinceName) {
 			  }
 			  
 			  // if nothing found 
-			  let errorMsg = 'NOT MUNICIPALITY FOUND FOR \'' + municipalityName + '\' IN PROVINCE ' + provinceName + '\'';
+			  let errorMsg = 'NOT COORD FOUND FOR MUNICIPALITY \'' + municipalityName + '\' IN PROVINCE ' + codeProvince + '\'';
 			  return reject(errorMsg);
 
 			});

@@ -1,12 +1,17 @@
 'use strict';
 
+/**
+ * Aggregate operation on regions, provinces and municipalities.
+ *
+ * @module map_operations
+*/
 const Promise = require("bluebird");
 
 const db = require('./db_creator').getDb();
 
 var ac = {};
 
-ac.getElencoRegioni = function (resolve, reject) {
+const getElencoRegioni = function (resolve, reject) {
 
 	return new Promise( function (resolve, reject){
 	  let codesRegions = [];
@@ -28,11 +33,6 @@ ac.getElencoRegioni = function (resolve, reject) {
 	});
 };
 
-ac.getRegioneFromCode = function (codeRegione) {
-
-   console.log('TODO FOUND REGIONE FROM CODE:', codeRegione);
-};
-
 /*
 	return arr objs:	{
 			name: name,
@@ -42,7 +42,7 @@ ac.getRegioneFromCode = function (codeRegione) {
 		}
 */
 
-ac.getProvinceByCodeRegione = function (codRegione) {
+const getProvinceByCodeRegione = function (codRegione) {
 
 	return new Promise( function (resolve, reject){
 	  let arrProv = [];
@@ -83,7 +83,7 @@ ac.getProvinceByCodeRegione = function (codRegione) {
 
 */
 
-ac.getComuniByCodeProvincia = function (codProvincia) {
+const getComuniByCodeProvincia = function (codProvincia) {
 
 	return new Promise( function (resolve, reject){
 	  let arrMunicipality = [];
@@ -115,4 +115,25 @@ ac.getComuniByCodeProvincia = function (codProvincia) {
 
 
 
-module.exports = ac;
+module.exports = {
+	/**
+	* 
+	* @function
+	*/
+	
+	getElencoRegioni: getElencoRegioni,
+	
+	/**
+	* 
+	* @function
+	*/
+	
+	getProvinceByCodeRegione: getProvinceByCodeRegione,
+	
+	/**
+	* 
+	* @function
+	*/
+	
+	getComuniByCodeProvincia: getComuniByCodeProvincia
+};

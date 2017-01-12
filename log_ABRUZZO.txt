@@ -1,0 +1,47 @@
+LOADING DB_CREATOR..............
+AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+DOING REQUEST, RN: AQ KR: 66
+DOING REQUEST, RN: TE KR: 67
+DOING REQUEST, RN: PE KR: 68
+DOING REQUEST, RN: CH KR: 69
+MUNICIPALITIES to load COORD: 4 OF 305
+[ { name: 'San Pio delle Camere',
+    provincia_id: 66,
+    altitudine: 830,
+    superficie: 17.21,
+    popolazione: 631,
+    comune_id: '5643',
+    codeProvince: 'AQ' },
+  { name: 'Teramo',
+    provincia_id: 67,
+    altitudine: 432,
+    superficie: 152.84,
+    popolazione: 54294,
+    comune_id: '5704',
+    codeProvince: 'TE' },
+  { name: 'Carpineto Sinello',
+    provincia_id: 69,
+    altitudine: 381,
+    superficie: 29.85,
+    popolazione: 666,
+    comune_id: '5767',
+    codeProvince: 'CH' },
+  { name: 'Torino di Sangro',
+    provincia_id: 69,
+    altitudine: 164,
+    superficie: 32.12,
+    popolazione: 3041,
+    comune_id: '5847',
+    codeProvince: 'CH' } ]
+--->>>>>> CALLING: San Pio delle Camere AQ
+--->>>>>> CALLING: Teramo TE
+--->>>>>> CALLING: Carpineto Sinello CH
+--->>>>>> CALLING: Torino di Sangro CH
+++++ ERROR NOT MUNICIPALITY FOUND FOR 'Carpineto Sinello' IN PROVINCE CH'
+++++ ERROR STATUS: 'ZERO_RESULTS' FOR MUNICIPALITY 'Torino di Sangro' FOR PROVINCE 'CH'
+++++ ERROR STATUS: 'ZERO_RESULTS' FOR MUNICIPALITY 'Teramo' FOR PROVINCE 'TE'
+++++ ERROR NOT MUNICIPALITY FOUND FOR 'San Pio delle Camere' IN PROVINCE AQ'
+NOW  LOADED ON DB!!!
+N° BLOCKS:  1
+[ undefined, undefined, undefined, undefined ]
+**********************************

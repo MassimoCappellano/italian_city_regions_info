@@ -27,10 +27,7 @@ function capitalizeFirstLetter(word) {
 	return word;
 }
 
-
-
 console.log('asss', capitalizeFirstLetter('asss'));
-
 
 console.log(' asss', capitalizeFirstLetter(' asss'));
 

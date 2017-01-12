@@ -1,0 +1,69 @@
+LOADING DB_CREATOR..............
+AIzaSyDopFGfG7qwz24oHWfDdyU14b3aW10SHZM
+DOING REQUEST, RN: OT KR: 104
+DOING REQUEST, RN: OG KR: 105
+DOING REQUEST, RN: VS KR: 106
+DOING REQUEST, RN: CI KR: 107
+DOING REQUEST, RN: SS KR: 90
+DOING REQUEST, RN: NU KR: 91
+DOING REQUEST, RN: CA KR: 92
+DOING REQUEST, RN: OR KR: 95
+MUNICIPALITIES to load COORD: 6 OF 377
+[ { name: 'Arborea',
+    provincia_id: 95,
+    altitudine: 7,
+    superficie: 94.96,
+    popolazione: 4048,
+    comune_id: '7342',
+    codeProvince: 'OR' },
+  { name: 'Cabras',
+    provincia_id: 95,
+    altitudine: 6,
+    superficie: 102.26,
+    popolazione: 9032,
+    comune_id: '7354',
+    codeProvince: 'OR' },
+  { name: 'Ghilarza',
+    provincia_id: 95,
+    altitudine: 290,
+    superficie: 55.46,
+    popolazione: 4615,
+    comune_id: '7357',
+    codeProvince: 'OR' },
+  { name: 'Paulilatino',
+    provincia_id: 95,
+    altitudine: 285,
+    superficie: 103.85,
+    popolazione: 2347,
+    comune_id: '7377',
+    codeProvince: 'OR' },
+  { name: 'Villa Sant\'Antonio',
+    provincia_id: 95,
+    altitudine: 249,
+    superficie: 19.05,
+    popolazione: 382,
+    comune_id: '7384',
+    codeProvince: 'OR' },
+  { name: 'Bosa',
+    provincia_id: 95,
+    altitudine: 2,
+    superficie: 128.02,
+    popolazione: 8026,
+    comune_id: '7415',
+    codeProvince: 'OR' } ]
+--->>>>>> CALLING: Arborea OR
+--->>>>>> CALLING: Cabras OR
+--->>>>>> CALLING: Ghilarza OR
+--->>>>>> CALLING: Paulilatino OR
+--->>>>>> CALLING: Villa Sant'Antonio OR
+--->>>>>> CALLING: Bosa OR
+++++ ERROR NOT MUNICIPALITY FOUND FOR 'Ghilarza' IN PROVINCE OR'
+++++ ERROR NOT MUNICIPALITY FOUND FOR 'Paulilatino' IN PROVINCE OR'
+++++ ERROR NOT MUNICIPALITY FOUND FOR 'Arborea' IN PROVINCE OR'
+++++ ERROR STATUS: 'ZERO_RESULTS' FOR MUNICIPALITY 'Cabras' FOR PROVINCE 'OR'
+++++ ERROR NOT MUNICIPALITY FOUND FOR 'Bosa' IN PROVINCE OR'
+++++ ERROR STATUS: 'ZERO_RESULTS' FOR MUNICIPALITY 'Villa Sant'Antonio' FOR PROVINCE 'OR'
+NOW  LOADED ON DB!!!
+N° BLOCKS:  1
+[ undefined, undefined, undefined, undefined, undefined, undefined ]
+**********************************

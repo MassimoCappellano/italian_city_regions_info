@@ -7,6 +7,10 @@ node_modules/
 
 output/*
 
+out
+
+out/*
+
 .env
 
 

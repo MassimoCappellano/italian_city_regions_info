@@ -1,6 +1,11 @@
 'use strict';
 
-
+/**
+ * Utility module for checking contiguity between two areas.
+ *
+ * @module geo/check_contiguity
+ *
+ */
 
 function checkIfInside(latN, latS, lngE, lngW, point){
 
@@ -53,6 +58,12 @@ function checkContinuityInt(bounds1, bounds2) {
 		return false;
 	}
 }
+
+/**
+ * @function
+ * @param {object} bounds1
+ * @param {object} bounds2
+ */
 
 exports.checkContiguity = function (bounds1, bounds2) {
 

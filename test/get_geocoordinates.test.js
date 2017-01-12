@@ -34,7 +34,7 @@ function xtest() {
 
   */
 
-xtest('get coordinate region', function(t) {
+test('get coordinate region', function(t) {
 
 	getGeoCoordinates.getRegionCoordinates('Lombardia').done(
 			function (result) {
@@ -51,7 +51,7 @@ xtest('get coordinate region', function(t) {
 });
 
 
-xtest('get coordinate region NOT EXISTENT', function(t) {
+test('get coordinate region NOT EXISTENT', function(t) {
 
 	getGeoCoordinates.getRegionCoordinates('LombardiaAAAAAA').done(
 			function (result) {
@@ -67,7 +67,7 @@ xtest('get coordinate region NOT EXISTENT', function(t) {
 	t.end();
 });
 
-xtest('get coordinate NOT region name', function(t) {
+test('get coordinate NOT region name', function(t) {
 
 	getGeoCoordinates.getRegionCoordinates('Samarate').done(
 			function (result) {
@@ -84,7 +84,7 @@ xtest('get coordinate NOT region name', function(t) {
 });
 
 
-xtest('get coordinate province name', function(t) {
+test('get coordinate province name', function(t) {
 
 	getGeoCoordinates.getProvinceCoordinates('VA').done(
 			function (result) {
@@ -101,7 +101,7 @@ xtest('get coordinate province name', function(t) {
 });
 
 
-xtest('get coordinate NOT province name', function(t) {
+test('get coordinate NOT province name', function(t) {
 
 	getGeoCoordinates.getProvinceCoordinates('Samarate').done(
 			function (result) {
@@ -117,7 +117,7 @@ xtest('get coordinate NOT province name', function(t) {
 	t.end();
 });
 
-xtest('get coordinate municipality', function(t) {
+test('get coordinate municipality', function(t) {
 
 	getGeoCoordinates.getMunicipalityCoordinates('Samarate', 'VA').done(
 			function (result) {
@@ -133,7 +133,7 @@ xtest('get coordinate municipality', function(t) {
 	t.end();
 });
 
-xtest('get coordinate municipality Varese', function(t) {
+test('get coordinate municipality Varese', function(t) {
 
 	getGeoCoordinates.getMunicipalityCoordinates('Varese', 'VA').done(
 			function (result) {
@@ -150,7 +150,7 @@ xtest('get coordinate municipality Varese', function(t) {
 });
 
 
-xtest('get coordinate region Sicilia', function(t) {
+test('get coordinate region Sicilia', function(t) {
 
 	getGeoCoordinates.getRegionCoordinates('Sicilia').done(
 			function (result) {
@@ -166,7 +166,7 @@ xtest('get coordinate region Sicilia', function(t) {
 	t.end();
 });
 
-xtest('get coordinate region Sardegna', function(t) {
+test('get coordinate region Sardegna', function(t) {
 
 	getGeoCoordinates.getRegionCoordinates('Sardegna').done(
 			function (result) {
@@ -182,7 +182,7 @@ xtest('get coordinate region Sardegna', function(t) {
 	t.end();
 });
 
-xtest('get coordinate municipality', function(t) {
+test('get coordinate municipality', function(t) {
 
 	getGeoCoordinates.getMunicipalityCoordinates('Biassono', 'MB').done(
 			function (result) {
@@ -200,7 +200,7 @@ xtest('get coordinate municipality', function(t) {
 
 // Oggiona con Santo Stefano
 
-xtest('get coordinate municipality Oggiona con Santo Stefano', function(t) {
+test('get coordinate municipality Oggiona con Santo Stefano', function(t) {
 
 	getGeoCoordinates.getMunicipalityCoordinates('Oggiona con Santo Stefano', 'VA').done(
 			function (result) {

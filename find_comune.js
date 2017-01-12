@@ -4,14 +4,7 @@ const Promise = require("bluebird");
 
 const db = require('./db_creator').getDb();
 
-var ac = {};
-
-function callback (err) {
-
-	console.log('CALLBACK: ' + err);
-}
-
-ac.getComuneByCode = function (code) {
+const getComuneByCode = function (code) {
     return new Promise(function(resolve, reject) { //Or Q.defer() in Q
 	      db.get('inv:comuni:' + code, function (err, value) {
 		  if (err) {
@@ -32,7 +25,7 @@ ac.getComuneByCode = function (code) {
   	});
 }
 
-ac.getProvinciaByCode = function (code) {
+const getProvinciaByCode = function (code) {
 	return new Promise(function(resolve, reject) {
 		db.get('inv:province:' + code, function (err, value) {
 			if(err){
@@ -44,7 +37,7 @@ ac.getProvinciaByCode = function (code) {
 	});
 };
 
-ac.getRegioneByCode = function (code) {
+const getRegioneByCode = function (code) {
 	return new Promise(function(resolve, reject) {
 		db.get('inv:regioni:' + code, function (err, value) {
 			if(err){
@@ -56,64 +49,20 @@ ac.getRegioneByCode = function (code) {
 	});
 };
 
-/*
-	composition of getComuneByCode + getProvinciaByCode + getRegioneByCode --> comune info + 
-	provincia info + regione info
-*/
-
-ac.getComuneInfoByCodComune = function (code) {
-	return new Promise(function(resolve, reject) {
-		
-    	const result = {};
-
-		const P = ac.getComuneByCode(code);
-
-		P.done(function(content) {
-			result.name = content.name;
-			result.provincia_id = content.provincia_id;
-
-			const PP = ac.getProvinciaByCode(result.provincia_id);
-
-			PP.done(
-				function(content){
-					result.provincia_name = content.name;
-					result.provincia_code = content.code;
-					result.regione_id = content.regione_id;
-
-					const PR = ac.getRegioneByCode(content.regione_id);
-
-					PR.done(function(content){
-						result.regione_name = content.value;
-						resolve(result);
-					}, function(error) {
-						reject(error);
-					});
-
-				}, function(error){
-					reject(error);
-				});
-
-		}, function(error) {
-	   		reject(error);
-		});
-
-	});
-};
-
-ac.getProvinciaInfoByCodComune = function (code) {
+const getComuneInfoByCodComune = function (code) {
 
 	return new Promise(function(resolve, reject) {
 		
     	const result = {};
 
-		const P = ac.getComuneByCode(code).then( function (content) {
+		const P = getComuneByCode(code).then( function (content) {
 
 			if(content.name){
 				result.name = content.name;
 				result.code = code;
 				result.provincia_id = content.provincia_id;
 			
-				return ac.getProvinciaByCode(result.provincia_id);
+				return getProvinciaByCode(result.provincia_id);
 			} 
 				
 			
@@ -125,7 +74,7 @@ ac.getProvinciaInfoByCodComune = function (code) {
 				result.provincia_code = content.code;
 				result.regione_id = content.regione_id;
 
-				return ac.getRegioneByCode(result.regione_id);
+				return getRegioneByCode(result.regione_id);
 			}
 			// resolve(result);
 		}, function(err){
@@ -146,14 +95,15 @@ ac.getProvinciaInfoByCodComune = function (code) {
 	});
 };
 
-ac.findComuni = function (word, resolve, reject) {
+const findComuni = function (word, resolve, reject) {
+
 	word = word.trim();
 
 	if(word.length > 0){
 		word = word.charAt(0).toUpperCase() + word.slice(1)
 	}
-
-	return new Promise( function (resolve, reject){
+    
+    return new Promise( function (resolve, reject){
 	  let codesMunicipality = [];
 	  let key = 'comuni:' + word;
 
@@ -169,18 +119,179 @@ ac.findComuni = function (word, resolve, reject) {
 		var arrP = [];
 		for (let i = 0; i < codesMunicipality.length; i++){
 			let keyMunicipality = codesMunicipality[i].value;
-			arrP.push(ac.getProvinciaInfoByCodComune(keyMunicipality));
+			arrP.push(getComuneInfoByCodComune(keyMunicipality));
 		}
 
 		return Promise.all(arrP);
 	});
+
 };
 
-ac.getDB = function() {
-	return db;
-}
+/**
+ @typedef ComuneInfo
+ @type {Object}
+ @property {string} name The name of municipality.
+ @property {number} code The pk coordinate.
+ @property {number} provincia_id The pk province.
+ @property {string} provincia_name The name of province
+ @property {string} provincia_code The code of province (2 letters)
+ @property {number} regione_id The pk of region
+ @property {string} regione_name The name of region
+ */
 
-module.exports = ac;
+ /**
+  @typedef Geometry
+  @type {Object}
+
+  @example  <caption>Example of Geomerty JSON object</caption>
+        {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.6430867,
+                  "lng" : 8.8042525
+               },
+               "southwest" : {
+                  "lat" : 45.6027756,
+                  "lng" : 8.7624716
+               }
+            },
+            "location" : {
+               "lat" : 45.6260364,
+               "lng" : 8.787032399999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.6430867,
+                  "lng" : 8.8042525
+               },
+               "southwest" : {
+                  "lat" : 45.6027756,
+                  "lng" : 8.7624716
+               }
+            }
+         }
+ */
+
+ /*
+ 
+ "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 45.6430867,
+                  "lng" : 8.8042525
+               },
+               "southwest" : {
+                  "lat" : 45.6027756,
+                  "lng" : 8.7624716
+               }
+            },
+            "location" : {
+               "lat" : 45.6260364,
+               "lng" : 8.787032399999999
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 45.6430867,
+                  "lng" : 8.8042525
+               },
+               "southwest" : {
+                  "lat" : 45.6027756,
+                  "lng" : 8.7624716
+               }
+            }
+         }
+ */        
+
+
+ /**
+  @typedef Municipality
+  @type {Object}
+  @property {string} name
+  @property {number} altitudine Meters of altitude over sea
+  @property {number} superficie Area in km2
+  @property {number} popolazione Population
+  @property {string} place_id Gmap result place_id
+  @property {Geometry} geometry Gmap result geometry object
+ */
+
+/**
+ @typedef Province
+ @type {Object}
+ @property {string} name Name of the province
+ @property {string} code Code of province (2 letters)
+ @property {number} regione_id Pk of region
+ @property {string} place_id Gmap result place_id
+ @property {Geometry} geometry Gmap result geometry object
+*/
+
+ /**
+  @typedef Region
+  @type {Object}
+  @property {string} value Name of region
+  @property {string} place_id Gmap result place_id
+  @property {Geometry} geometry Gmap result geometry object
+ */
+
+
+/** 
+ * Module for searching on regions, provinces and municipalities info. 
+ * @module find_comune 
+ *
+ * 
+ */
+
+module.exports = {
+
+	/** Return municipality object  by code municipality.
+	*
+	* @function
+	* @param {int} code - pk in municipalities 
+	* @returns {Municipality} municipality 
+	*/
+
+	getComuneByCode: getComuneByCode,
+
+	/** Return province object  by code province.
+	*
+	* @function
+	* @param {int} code - pk in provinces 
+	* @returns {Province} province
+	*/
+
+	getProvinciaByCode: getProvinciaByCode,
+
+	/** Return region object  by code region.
+	*
+	* @function
+	* @param {int} code - pk in regions
+	* @returns {Region} region
+	*/
+
+	getRegioneByCode: getRegioneByCode,
+
+	/**
+ 	*	composition of getComuneByCode + getProvinciaByCode + getRegioneByCode --> comune info + 
+ 	*	provincia info + regione info
+ 	*
+ 	*   @function
+ 	*   @param {int} code - pk in municipalities
+ 	*   @returns {ComuneInfo} comuneInfo - info about municipality 
+ 	*/
+
+	getComuneInfoByCodComune: getComuneInfoByCodComune,
+
+	/** Return one or more municipality objects  by start name of municipality.
+	*
+	* @function
+	* @param {string} name - start name of municipality
+    * @returns {Array<ComuneInfo>} arrComuneInfo - list of municipalities	
+	*/
+
+	findComuni: findComuni
+
+};
 
 
 
