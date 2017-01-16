@@ -48,33 +48,34 @@ function doLoadCoordRegions() {
 	       function (regions) {
 				
 				// const batch = db.batch();
-				regions = regions.filter( function(region) {
-					
-					console.log(region.place_id);
-
-					if( !region.place_id) {
-						console.log('ADD:', regions)
-						return region;
-					}
-				});
-
+				
 				Promise.map(regions, function( region ) {
 					let nameRegion = region.key;
 					let keyRegion = region.value.value;
 
-					console.log('DOING REQUEST, RN:', nameRegion, 'KR:', keyRegion);
+					return findComune.getRegioneByCode(keyRegion).then( function (regionInfo) {
 
-					return getGeoCoordinates.getRegionCoordinates(nameRegion).catch( function ignore(err) {
-						console.log(err);
-					}).then( function (coord) {
-						// for undefined
-						if(coord) {
-							coord.nameRegion = nameRegion;
-							coord.keyRegion = keyRegion;
-						}
+						if( !regionInfo.place_id) {
+
+							console.log('DOING REQUEST, RN:', nameRegion, 'KR:', keyRegion);
+
+							return getGeoCoordinates.getRegionCoordinates(nameRegion).catch( function ignore(err) {
+									console.log(err);
+							}).then( function (coord) {
+								// for undefined
+								if(coord) {
+									coord.nameRegion = nameRegion;
+									coord.keyRegion = keyRegion;
+								}
 						
-						return coord;
+								return coord;
+							});
+						} else {
+							// yet with coord on db
+							console.log('** RN:', nameRegion, 'KR:', keyRegion, 'place_id:', regionInfo.place_id);
+						}
 					});
+					
 				}).then( function (coordinates) {
 
 					return Promise.map(coordinates, function(regionCoord){
@@ -343,8 +344,7 @@ function doLoadCoordComuniByCodeRegion(codeRegion){
 
 
 
-
-// doLoadCoordRegions();
+doLoadCoordRegions();
 
 // 1, 3, 4
 
@@ -409,6 +409,6 @@ const arrReg = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 2
 for (let i of arrReg){
 	console.log('REGION:', i);
 
-	doLoadCoordProvinceByCodeRegion(i);
+	// doLoadCoordProvinceByCodeRegion(i);
 
 }

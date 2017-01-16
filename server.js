@@ -66,7 +66,7 @@ server.register([
  
     // server.auth.default('jwt');
 
-		server.views({
+        server.views({
 			engines: {
 				hbs: require('handlebars')
 			},
