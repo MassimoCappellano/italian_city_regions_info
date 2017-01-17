@@ -2,6 +2,10 @@
 
 const Hapi = require('hapi');
 
+const HapiSwagger = require('hapi-swagger');
+
+const Pack = require('./package');
+
 const server = new Hapi.Server();
 
 server.connection({ port: 4000 });
@@ -30,10 +34,22 @@ server.ext('onPreResponse', (request, reply) => {
 });
 */
 
+const options = {
+	cors: true,
+	produces: ['application/json'],
+    info: {
+            'title': 'Test API Documentation',
+            'version': Pack.version,
+        }
+    };
+
 server.register([
 	require('inert'),
-	require('vision')	
-	], (err) => {
+	require('vision'),
+	{
+        'register': HapiSwagger,
+        'options': options
+    }], (err) => {
 		if(err) {
 			throw err;
 		}

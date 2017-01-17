@@ -20,37 +20,67 @@ module.exports = [{
 	}
 
 }, {
-	config: {
-		cors: true
-	},
 	method: 'GET',
-	path: '/comuni/{name?}',
+	path: '/comuni',
 	handler: function (request, reply) {
-		let query = '';
+			let query = '';
 
-		if(request.params.name)
-			query = request.params.name;
+			const P = fc.findComuni(query);
 
-		const P = fc.findComuni(query);
+			P.done(function(content) {
+				return reply(content.map((item) => {
+						let obj = {};
+						obj.n = item.name;
+						obj.c = item.code;
+						obj.pc = item.provincia_code;
 
-		P.done(function(content) {
-			return reply(content.map((item) => {
-					let obj = {};
-					obj.n = item.name;
-					obj.c = item.code;
-					obj.pc = item.provincia_code;
+						return obj;
+						}));
+			}, function(error) {
+	   			return reply(error);
+			});
 
-					return obj;
-					}));
-		}, function(error) {
-   			return reply(error);
-		});
-
-	}
-}, {
+		},
 	config: {
-		cors: true
-	},
+		cors: true,
+		tags: ['api'],
+		description: 'Get list of all municipies',
+        notes: 'Returns list of all municipies',
+        }	
+}, {
+	method: 'GET',
+	path: '/comuni/{name}',
+	handler: function (request, reply) {
+			let query = request.params.name;
+
+			const P = fc.findComuni(query);
+
+			P.done(function(content) {
+				return reply(content.map((item) => {
+						let obj = {};
+						obj.n = item.name;
+						obj.c = item.code;
+						obj.pc = item.provincia_code;
+
+						return obj;
+						}));
+			}, function(error) {
+	   			return reply(error);
+			});
+
+		},
+	config: {
+		cors: true,
+		tags: ['api'],
+		description: 'Get todo',
+        notes: 'Returns a todo item by the id passed in the path',
+        validate: {
+			params: {
+				name: Joi.string()
+			}
+		}
+	}	
+}, {
 	method: 'GET',
 	path: '/getMunicipalityInfo/{idMunicipality}',
 	handler: function (request, reply) {
@@ -70,6 +100,8 @@ module.exports = [{
 		});
 	},
 	config: {
+		cors: true,
+		tags: ['api'],
 		validate: {
 			params: {
 				idMunicipality: Joi.number().integer().min(1)
@@ -78,9 +110,6 @@ module.exports = [{
 	}
 },
 {	
-	config: {
-		cors: true
-	},
 	method: 'GET',
 	path: '/getProvinceInfo/{idProvince}',
 	handler: function (request, reply) {
@@ -100,6 +129,8 @@ module.exports = [{
 		});
 	},
 	config: {
+		cors: true,
+		tags: ['api'],
 		validate: {
 			params: {
 				idProvince: Joi.number().integer().min(1)
@@ -108,9 +139,6 @@ module.exports = [{
 	}
 },
 {
-	config: {
-		cors: true
-	},
 	method: 'GET',
 	path: '/getRegionInfo/{idRegion}',
 	handler: function (request, reply) {
@@ -130,6 +158,8 @@ module.exports = [{
 		});
 	},
 	config: {
+		cors: true,
+		tags: ['api'],
 		validate: {
 			params: {
 				idRegion: Joi.number().integer().min(1)
