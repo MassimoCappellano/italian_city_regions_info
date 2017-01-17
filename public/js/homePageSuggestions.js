@@ -6,9 +6,9 @@ $( document ).ready(function() {
 					// prefetch: '/comuni',
 			  
 			  remote: {
-			    // url: 'https://cryptic-bastion-79191.herokuapp.com/comuni?q=%QUERY',
+			    // url: 'https://cryptic-bastion-79191.herokuapp.com/comuni/%QUERY',
 			    
-			    url: 'http://customer.simplethings.it:4000/comuni?q=%QUERY',
+			    url: 'http://customer.simplethings.it:4000/comuni/%QUERY',
 			    wildcard: '%QUERY'
 			  }
 			 

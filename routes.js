@@ -1,5 +1,7 @@
 'use strict';
 
+const Joi = require('joi');
+
 const Assets = require('./handlers/assets');
 
 const fc = require('./find_comune');
@@ -11,16 +13,23 @@ module.exports = [{
 		reply.view('homePage');
 	}
 }, {
+	method: 'GET',
+	path: '/query_examples',
+	handler: function (request, reply) {
+		reply.view('query_examples');
+	}
+
+}, {
 	config: {
 		cors: true
 	},
 	method: 'GET',
-	path: '/comuni',
+	path: '/comuni/{name?}',
 	handler: function (request, reply) {
 		let query = '';
 
-		if(request.query.q)
-			query = request.query.q;
+		if(request.params.name)
+			query = request.params.name;
 
 		const P = fc.findComuni(query);
 
@@ -59,6 +68,13 @@ module.exports = [{
 			
 			return reply(error);
 		});
+	},
+	config: {
+		validate: {
+			params: {
+				idMunicipality: Joi.number().integer().min(1)
+			}
+		}
 	}
 },
 {	
@@ -82,6 +98,13 @@ module.exports = [{
 			
 			return reply(error);
 		});
+	},
+	config: {
+		validate: {
+			params: {
+				idProvince: Joi.number().integer().min(1)
+			}
+		}
 	}
 },
 {
@@ -105,6 +128,13 @@ module.exports = [{
 			
 			return reply(error);
 		});
+	},
+	config: {
+		validate: {
+			params: {
+				idRegion: Joi.number().integer().min(1)
+			}
+		}
 	}
 },
 {
