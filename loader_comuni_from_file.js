@@ -106,12 +106,19 @@ function doLoadDBMunicipalities(jsonFile) {
 			let superficie = value.fields.superficie;
 			let popolazione = value.fields.popolazione;
 			
+			let codice_istat = value.fields.codice_istat;
+			let codice_catastale = value.fields.codice_catastale;
+			let is_capoluogo = value.fields.is_capoluogo;
+			
 			let obj = {
 				name: name,
+				codice_istat: codice_istat,
+				codice_catastale: codice_catastale,
+				is_capoluogo: is_capoluogo,
 				provincia_id: provincia_id,
 				altitudine: altitudine,
 				superficie: superficie,
-				popolazione: popolazione
+				popolazione: popolazione,
 			};
 			
 			console.log('comuni inv: %s -> ', keyInv, obj);

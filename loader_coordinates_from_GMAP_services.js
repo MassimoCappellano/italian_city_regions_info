@@ -305,6 +305,7 @@ function doLoadCoordComuniByCodeRegion(codeRegion){
 
 									 			// now redundant information
 									 			delete objMun.comune_id;
+									 			delete objMun.codeProvince;
 
 												console.log('PUTTING:>>>', keyInv, '----->', objMun);
 
@@ -344,7 +345,7 @@ function doLoadCoordComuniByCodeRegion(codeRegion){
 
 
 
-doLoadCoordRegions();
+// doLoadCoordRegions();
 
 // 1, 3, 4
 
@@ -412,3 +413,5 @@ for (let i of arrReg){
 	// doLoadCoordProvinceByCodeRegion(i);
 
 }
+
+// doLoadCoordComuniByCodeRegion(3);

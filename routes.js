@@ -6,6 +6,30 @@ const Assets = require('./handlers/assets');
 
 const fc = require('./find_comune');
 
+const responseModelListMunicipies = Joi.array().items(Joi.object({
+    n: Joi.string().description('the first number'),
+    c: Joi.number().integer(),
+    pc: Joi.string()
+})).label('Result');
+
+/*
+	name: "Samarate",
+provincia_id: 12,
+altitudine: 221,
+superficie: 16.01,
+popolazione: 16168,
+comune_id: "1472",
+codeProvince: "VA",
+
+*/
+
+const responseModelMunicipality = Joi.object({
+    name: Joi.string().description('the first number'),
+    provincia_id: Joi.number().integer(),
+    comune_id: Joi.string()
+}).label('Result2');
+
+
 module.exports = [{
 	method: 'GET',
 	path: '/',
@@ -46,6 +70,7 @@ module.exports = [{
 		tags: ['api'],
 		description: 'Get list of all municipies',
         notes: 'Returns list of all municipies',
+        response: {schema: responseModelListMunicipies}
         }	
 }, {
 	method: 'GET',
@@ -74,6 +99,7 @@ module.exports = [{
 		tags: ['api'],
 		description: 'Get todo',
         notes: 'Returns a todo item by the id passed in the path',
+        response: { schema: responseModelListMunicipies }, 
         validate: {
 			params: {
 				name: Joi.string()
@@ -102,6 +128,7 @@ module.exports = [{
 	config: {
 		cors: true,
 		tags: ['api'],
+		// response: { schema: responseModelMunicipality }, 
 		validate: {
 			params: {
 				idMunicipality: Joi.number().integer().min(1)
