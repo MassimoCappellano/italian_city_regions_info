@@ -131,7 +131,7 @@ const findComuni = function (word, resolve, reject) {
  @typedef ComuneInfo
  @type {Object}
  @property {string} name The name of municipality.
- @property {number} code The pk coordinate.
+ @property {number} code The pk of municipality.
  @property {number} provincia_id The pk province.
  @property {string} provincia_name The name of province
  @property {string} provincia_code The code of province (2 letters)
@@ -208,7 +208,11 @@ const findComuni = function (word, resolve, reject) {
  /**
   @typedef Municipality
   @type {Object}
-  @property {string} name
+  @property {string} name Name of municipality
+  @property {number} codice_istat Codice ISTAT
+  @property {string} codice_catastale Codice catastale
+  @property {boolean} is_capoluogo If is masterplace 
+  @property {number} provincia_id Pk of province
   @property {number} altitudine Meters of altitude over sea
   @property {number} superficie Area in km2
   @property {number} popolazione Population

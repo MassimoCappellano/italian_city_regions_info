@@ -8,7 +8,7 @@ function xtest(){}
 
 // [{"k":"Samarate","v":"1472","pro":"PROV"},{"k":"Samassi","v":"7904","pro":"PROV"},{"k":"Samatzai","v":"7189","pro":"PROV"}]
 
-test('Municipality that start with \'Sam\'', function(t){
+test('Municipality that start with \'Sam\'', function(t) {
 	
 	const PA = fc.findComuni('Sam');
 
@@ -22,7 +22,7 @@ test('Municipality that start with \'Sam\'', function(t){
 });
 
 
-xtest('Municipality that start with \'Sam\' only name and code', function(t){
+xtest('Municipality that start with \'Sam\' only name and code', function(t) {
 	const PA = fc.findComuni('Sam');
 	
 	/*
@@ -47,6 +47,20 @@ xtest('Municipality that start with \'Sam\' only name and code', function(t){
 		});
 
 		console.log(mContent);
+
+	}, function(error) {
+   		console.log('FOUND ERROR2: ', error);
+	});
+
+	t.end();
+});
+
+test('Find by code municipality', function(t) {
+	const PA = fc.getComuneByCode(1472);
+
+    PA.done(function(content) {
+
+		console.log(content);
 
 	}, function(error) {
    		console.log('FOUND ERROR2: ', error);
