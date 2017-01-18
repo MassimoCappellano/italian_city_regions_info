@@ -8,7 +8,7 @@ const Pack = require('./package');
 
 const server = new Hapi.Server();
 
-server.connection({ port: 4000 });
+server.connection({ port: (process.env.PORT || 5000) });
 
 /*
 
