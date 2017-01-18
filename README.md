@@ -1,11 +1,22 @@
-FOR LIST OF ITALIAN NUNICIPALITIES
+FOR LIST OF ITALIAN MUNICIPALITIES
 ----------------------------------
 
-started from here https://github.com/kbytesys/django_comuni_italiani
+started thnks to https://github.com/kbytesys/django_comuni_italiani
 
+Codes and information are official from ISTAT http://www.istat.it/en/ National Italian Institute of Statistics.
+
+MY GIST
+-------
+
+Start file: https://gist.github.com/MassimoCappellano/7bc250056aab737895edad504d6d30e6
+
+Start file enriched with GMAP coordinates: https://gist.github.com/MassimoCappellano/10f745bc7c0230fe2847b89e7228df56
+
+OTHER USEFUL DATA FOUND
+-----------------------
+Maybe to use for functionality extension.
 
 https://gist.github.com/datajournalism-it/212e7134625fbee6f9f7
-
 
 CONFINI PROVINCE ITALIANE
 -------------------------
@@ -19,16 +30,7 @@ https://developers.google.com/maps/documentation/geocoding/intro#GeocodingRespon
 
 http://stackoverflow.com/questions/1502590/calculate-distance-between-two-points-in-google-maps-v3
 
-MY GIST
--------
 
-Start file:
-
-https://gist.github.com/MassimoCappellano/7bc250056aab737895edad504d6d30e6
-
-Start file enriched with GMAP coordinates:
-
-https://gist.github.com/MassimoCappellano/10f745bc7c0230fe2847b89e7228df56
 
 
 
