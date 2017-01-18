@@ -14,11 +14,11 @@ Start file enriched with GMAP coordinates: https://gist.github.com/MassimoCappel
 
 CONFIGURATION
 ---------------
-Important: create a .env file with your GMAP service KEY
+Important: create a .env file with your GMAP service KEY. Use `.env_temp` as a template.
 
 Used https://github.com/dwyl/env2 for configuration.
 
-OTHER USEFUL DATA FOUND
+OTHER USEFULL DATA FOUND
 -----------------------
 Maybe to use for functionality extension.
 
