@@ -12,6 +12,12 @@ Start file: https://gist.github.com/MassimoCappellano/7bc250056aab737895edad504d
 
 Start file enriched with GMAP coordinates: https://gist.github.com/MassimoCappellano/10f745bc7c0230fe2847b89e7228df56
 
+CONFIGURATION
+---------------
+Important: create a .env file with your GMAP service KEY
+
+Used https://github.com/dwyl/env2 for configuration.
+
 OTHER USEFUL DATA FOUND
 -----------------------
 Maybe to use for functionality extension.
