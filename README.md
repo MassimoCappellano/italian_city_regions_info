@@ -1,7 +1,7 @@
-FOR LIST OF ITALIAN MUNICIPALITIES
-----------------------------------
+FOR LIST OF ITALIAN  CITIES and REGIONS
+---------------------------------------
 
-started thnks to https://github.com/kbytesys/django_comuni_italiani
+Started thnks to https://github.com/kbytesys/django_comuni_italiani
 
 Codes and information are official from ISTAT http://www.istat.it/en/ National Italian Institute of Statistics.
 
