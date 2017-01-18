@@ -4,9 +4,9 @@
         "dictionaries": ["jsdoc","closure"]
     },
     "source": {
-        "include": ["./find_comune.js", "./geo/get_geocoordinates.js", "geo/check_contiguity.js", 
-            "./map_operations.js", "loader_comuni_from_file.js", "loader_comuni_with_coords_from_file.js", 
-            "loader_coordinates_from_GMAP_services.js", "dump_comuni_info.js"],
+        "include": ["./lib/find_comune.js", "./lib/geo/get_geocoordinates.js", "./lib/geo/check_contiguity.js", 
+            "./lib/map_operations.js", "./utilities/loader_comuni_from_file.js", "./utilities/loader_comuni_with_coords_from_file.js", 
+            "./utilities/loader_coordinates_from_GMAP_services.js", "./utilities/dump_comuni_info.js"],
         "includePattern": ".+\\.js(doc|x)?$",
         "excludePattern": "(^|\\/|\\\\)_"
     },

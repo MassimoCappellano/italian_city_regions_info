@@ -4,7 +4,7 @@ const Joi = require('joi');
 
 const Assets = require('./handlers/assets');
 
-const fc = require('./find_comune');
+const fc = require('./lib/find_comune');
 
 const responseModelListMunicipies = Joi.array().items(Joi.object({
     n: Joi.string().description('the first number'),

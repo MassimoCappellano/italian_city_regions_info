@@ -1,6 +1,6 @@
 'use strict';
 
-const mo = require('../map_operations');
+const mo = require('../lib/map_operations');
 
 const test = require('tape');
 

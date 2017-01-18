@@ -19,3 +19,19 @@ https://developers.google.com/maps/documentation/geocoding/intro#GeocodingRespon
 
 http://stackoverflow.com/questions/1502590/calculate-distance-between-two-points-in-google-maps-v3
 
+MY GIST
+-------
+
+Start file:
+
+https://gist.github.com/MassimoCappellano/7bc250056aab737895edad504d6d30e6
+
+Start file enriched with GMAP coordinates:
+
+https://gist.github.com/MassimoCappellano/10f745bc7c0230fe2847b89e7228df56
+
+
+
+
+
+

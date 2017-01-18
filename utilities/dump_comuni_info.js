@@ -6,18 +6,15 @@
  * @author Massimo Cappellano 
  */
 
-var jsonfile = require('jsonfile');
-var util = require('util');
-
-var path = require('path');
-
-var fileInput = path.join(__dirname, './data/comuni_italiani.json');
-
+const jsonfile = require('jsonfile');
+const util = require('util');
+const path = require('path');
 const Promise = require('bluebird');
-
-const db = require('./db_creator').getDb();
-
 const fs = require('fs');
+
+const fileInput = path.join(__dirname, '..','./data/comuni_italiani.json');
+
+const db = require('../lib/db_creator').getDb();
 
 function checkDirectorySync(directory) {  
   try {
@@ -27,9 +24,9 @@ function checkDirectorySync(directory) {
   }
 }
 
-checkDirectorySync("./output");  
+checkDirectorySync("../output");  
 
-var fileOutput = path.join(__dirname, './output/comuni_italiani_with_coords.json');
+var fileOutput = path.join(__dirname, '..', './output/comuni_italiani_with_coords.json');
 
 var wstream = fs.createWriteStream(fileOutput);
 

@@ -1,6 +1,6 @@
 'use strict';
 
-const Point = require('../point');
+const Point = require('../lib/point');
 const CalculateDistance = require('../calculate_distance');
 
 const test = require('tape');

@@ -1,6 +1,6 @@
 'use strict';
 
-const fc = require('../find_comune');
+const fc = require('../lib/find_comune');
 
 const test = require('tape');
 

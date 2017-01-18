@@ -11,16 +11,16 @@ var util = require('util');
 
 var path = require('path');
 
-var file = path.join(__dirname, '/data/comuni_italiani.json');
+var file = path.join(__dirname, '../output/comuni_italiani_with_coords.json');
 
-const db = require('./db_creator').getDb();
+const db = require('../lib/db_creator').getDb();
 
 /**
-	Load list of municipalities with associated province and region.
+	Load list of municipalities with associated province and region and respective coords.
 	@param {string} jsonFile - the json file with informations
 */
 
-function doLoadDBMunicipalities(jsonFile) {
+function doLoadDBMunicipalitiesWithCoord(jsonFile) {
 
 	jsonfile.readFile(jsonFile, function(err, obj) {
 	  // console.dir(obj)
@@ -47,6 +47,11 @@ function doLoadDBMunicipalities(jsonFile) {
 			let valueInv = value.fields.name;
 			
 			let objRegInv = { value: valueInv };
+
+			if(value.place_id){
+				objRegInv.place_id = value.place_id;
+				objRegInv.geometry = value.geometry;
+			}
 
 			console.log('reg inv: %s -> ', keyInv, objRegInv);
 
@@ -77,6 +82,11 @@ function doLoadDBMunicipalities(jsonFile) {
 				regione_id: regione_id
 			};
 			
+			if(value.place_id){
+				obj.place_id = value.place_id;
+				obj.geometry = value.geometry;
+			}
+
 			console.log('prov: %s -> ', keyInv, obj);
 			
 			batch.put(keyInv,  obj);
@@ -105,7 +115,7 @@ function doLoadDBMunicipalities(jsonFile) {
 			let altitudine = value.fields.altitudine;
 			let superficie = value.fields.superficie;
 			let popolazione = value.fields.popolazione;
-			
+
 			let codice_istat = value.fields.codice_istat;
 			let codice_catastale = value.fields.codice_catastale;
 			let is_capoluogo = value.fields.is_capoluogo;
@@ -120,6 +130,11 @@ function doLoadDBMunicipalities(jsonFile) {
 				superficie: superficie,
 				popolazione: popolazione,
 			};
+
+			if(value.place_id){
+				obj.place_id = value.place_id;
+				obj.geometry = value.geometry;
+			}
 			
 			console.log('comuni inv: %s -> ', keyInv, obj);
 			
@@ -149,6 +164,6 @@ function doLoadDBMunicipalities(jsonFile) {
 }
 
 // do operation
-doLoadDBMunicipalities(file);
+doLoadDBMunicipalitiesWithCoord(file);
 
 

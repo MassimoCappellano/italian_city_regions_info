@@ -2,7 +2,7 @@
 
 const test = require('tape');
 
-const getGeoCoordinates = require('../geo/get_geocoordinates');
+const getGeoCoordinates = require('../lib/geo/get_geocoordinates');
 
 
 function xtest() {

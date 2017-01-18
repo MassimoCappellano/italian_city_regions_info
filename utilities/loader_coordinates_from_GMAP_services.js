@@ -7,17 +7,16 @@
  */
 
 const path = require('path');
-const mo = require('./map_operations');
-
-const getGeoCoordinates = require('./geo/get_geocoordinates');
-
-const findComune = require('./find_comune');
-
 const Promise = require('bluebird');
-
 const level = require('level');
 
-const db = require('./db_creator').getDb();
+const mo = require('../lib/map_operations');
+
+const getGeoCoordinates = require('../lib/geo/get_geocoordinates');
+
+const findComune = require('../lib/find_comune');
+
+const db = require('../lib/db_creator').getDb();
 
 function dbPutPromise(db, key, value){
 	return new Promise( function(resolve, reject) {
@@ -345,7 +344,7 @@ function doLoadCoordComuniByCodeRegion(codeRegion){
 
 
 
-// doLoadCoordRegions();
+doLoadCoordRegions();
 
 // 1, 3, 4
 
@@ -410,8 +409,8 @@ const arrReg = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 2
 for (let i of arrReg){
 	console.log('REGION:', i);
 
-	// doLoadCoordProvinceByCodeRegion(i);
+	doLoadCoordProvinceByCodeRegion(i);
 
 }
 
-// doLoadCoordComuniByCodeRegion(3);
+doLoadCoordComuniByCodeRegion(3);

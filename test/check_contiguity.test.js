@@ -2,7 +2,7 @@
 
 const test = require('tape');
 
-const checkContiguity = require('../geo/check_contiguity');
+const checkContiguity = require('../lib/geo/check_contiguity');
 
 /*
 
