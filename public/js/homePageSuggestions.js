@@ -8,7 +8,7 @@ $( document ).ready(function() {
 			  remote: {
 			    // url: 'https://cryptic-bastion-79191.herokuapp.com/comuni/%QUERY',
 			    
-			    url: 'http://customer.simplethings.it:4000/comuni/%QUERY',
+			    url: '/comuni/%QUERY',
 			    wildcard: '%QUERY'
 			  }
 			 
