@@ -63,13 +63,13 @@ const responseModelProvince = Joi.object({
 
 
 /*
-	"value": "Lombardia",
+	"name": "Lombardia",
   "place_id": "ChIJf4M-GsNEgUcR1JMVKCIm8qY",
   "geometry":
 */
 
 const responseModelRegion = Joi.object({
-	value: Joi.string().required().description('name of region'),
+	name: Joi.string().required().description('name of region'),
 
 	place_id: Joi.string().optional().description('ID in GMAP'),
     geometry: Joi.object().optional().description('geometry coord')

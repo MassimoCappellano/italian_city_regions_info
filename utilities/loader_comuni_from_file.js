@@ -46,7 +46,7 @@ function doLoadDBMunicipalities(jsonFile) {
 			let keyInv = 'inv:regioni:' + value.pk;
 			let valueInv = value.fields.name;
 			
-			let objRegInv = { value: valueInv };
+			let objRegInv = { name: valueInv };
 
 			console.log('reg inv: %s -> ', keyInv, objRegInv);
 

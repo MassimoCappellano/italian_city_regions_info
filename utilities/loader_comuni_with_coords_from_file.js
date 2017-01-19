@@ -46,7 +46,7 @@ function doLoadDBMunicipalitiesWithCoord(jsonFile) {
 			let keyInv = 'inv:regioni:' + value.pk;
 			let valueInv = value.fields.name;
 			
-			let objRegInv = { value: valueInv };
+			let objRegInv = { name: valueInv };
 
 			if(value.place_id){
 				objRegInv.place_id = value.place_id;
