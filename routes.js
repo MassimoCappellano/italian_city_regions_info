@@ -7,28 +7,73 @@ const Assets = require('./handlers/assets');
 const fc = require('./lib/find_comune');
 
 const responseModelListMunicipies = Joi.array().items(Joi.object({
-    n: Joi.string().description('the first number'),
-    c: Joi.number().integer(),
-    pc: Joi.string()
-})).label('Result');
+    n: Joi.string().required().description('name of city'),
+    c: Joi.number().integer().required().description('pk for search city info'),
+    pc: Joi.string().required().description('code province')
+})).label('Result infos list cities');
 
 /*
-	name: "Samarate",
-provincia_id: 12,
-altitudine: 221,
-superficie: 16.01,
-popolazione: 16168,
-comune_id: "1472",
-codeProvince: "VA",
+	"name": "Samarate",
+  "codice_istat": 12118,
+  "codice_catastale": "H736",
+  "is_capoluogo": false,
+  "provincia_id": 12,
+  "altitudine": 221,
+  "superficie": 16.01,
+  "popolazione": 16168,
+  "place_id": "ChIJkVjwFxOKhkcRbfhmH_LQCJw",
+  "geometry":
 
 */
 
 const responseModelMunicipality = Joi.object({
-    name: Joi.string().description('the first number'),
-    provincia_id: Joi.number().integer(),
-    comune_id: Joi.string()
-}).label('Result2');
 
+    name: Joi.string().required().description('name of city'),
+    codice_istat: Joi.number().integer().required().description('ISTAT code'),
+    codice_catastale: Joi.string().required().description('codice catastale'),
+    is_capoluogo: Joi.boolean().required().description('if mastercity'),
+    provincia_id: Joi.number().integer().required().description('pk of province'),
+
+    altitudine: Joi.number().integer().required().allow(null).description('meters of altitudine'),
+    superficie: Joi.number().required().allow(null).description('Area kmq'),
+    popolazione: Joi.number().integer().required().allow(null).description('number of citizen'),
+
+    place_id: Joi.string().optional().description('ID in GMAP'),
+    geometry: Joi.object().optional().description('geometry coord')
+
+}).label('Result City info');
+
+
+/*
+  "name": "Varese",
+  "code": "VA",
+  "regione_id": 3,
+  "place_id": "ChIJvUYMaLZ_hkcRIH5mLgJ4BgM",
+  "geometry": 
+*/
+
+const responseModelProvince = Joi.object({
+	name: Joi.string().required().description('name of province'),
+	code: Joi.string().length(2).required().description('code of province - 2 chars'),
+	regione_id: Joi.number().integer().required().description('pk of region'),
+
+	place_id: Joi.string().optional().description('ID in GMAP'),
+    geometry: Joi.object().optional().description('geometry coord')
+}).label('Result Province info');
+
+
+/*
+	"value": "Lombardia",
+  "place_id": "ChIJf4M-GsNEgUcR1JMVKCIm8qY",
+  "geometry":
+*/
+
+const responseModelRegion = Joi.object({
+	value: Joi.string().required().description('name of region'),
+
+	place_id: Joi.string().optional().description('ID in GMAP'),
+    geometry: Joi.object().optional().description('geometry coord')
+}).label('Result Region info');;
 
 module.exports = [{
 	method: 'GET',
@@ -97,8 +142,8 @@ module.exports = [{
 	config: {
 		cors: true,
 		tags: ['api'],
-		description: 'Get todo',
-        notes: 'Returns a todo item by the id passed in the path',
+		description: 'Get list of all municipies that start with {name}',
+        notes: 'Returns list of all municipies that start with {name}',
         response: { schema: responseModelListMunicipies }, 
         validate: {
 			params: {
@@ -128,7 +173,9 @@ module.exports = [{
 	config: {
 		cors: true,
 		tags: ['api'],
-		// response: { schema: responseModelMunicipality }, 
+		description: 'Get municipality info by {idMunicipality}',
+        notes: 'Returns lmunicipality info by {idMunicipality}',
+		response: { schema: responseModelMunicipality }, 
 		validate: {
 			params: {
 				idMunicipality: Joi.number().integer().min(1)
@@ -158,6 +205,9 @@ module.exports = [{
 	config: {
 		cors: true,
 		tags: ['api'],
+		description: 'Get province info by {idProvince}',
+        notes: 'Returns province info by {idProvince}',
+        response: { schema: responseModelProvince }, 
 		validate: {
 			params: {
 				idProvince: Joi.number().integer().min(1)
@@ -187,6 +237,9 @@ module.exports = [{
 	config: {
 		cors: true,
 		tags: ['api'],
+		description: 'Get region info by {idRegion}',
+        notes: 'Returns region info by {idRegion}',
+        response: { schema: responseModelRegion }, 
 		validate: {
 			params: {
 				idRegion: Joi.number().integer().min(1)
