@@ -24,11 +24,7 @@ function checkDirectorySync(directory) {
   }
 }
 
-checkDirectorySync("../output");  
-
 var fileOutput = path.join(__dirname, '..', './output/comuni_italiani_with_coords.json');
-
-var wstream = fs.createWriteStream(fileOutput);
 
 function dbGetPromise(value, key) {
 	 return new Promise( function( resolve, reject) {
@@ -57,14 +53,20 @@ function dbGetPromise(value, key) {
 }
 
 /**
-	Dump into a file coord info.
+	Dump into a file coord info. The coord info are that loaded previously into DB.
 	<br>
 	<br>
-	<strong>TO IMPROVE:</strong> input and output into code! 
+	@param {string} fileInputPath - the json file with informations in input
+	@param {string} fileOutputPath - the json file with informations in output, enriched with coords
 */
 
-function doDumpDbIntoFile(){
-	jsonfile.readFile(fileInput, function(err, obj) {
+function doDumpDbIntoFile(fileInputPath, fileOutputPath){
+
+	//TODO check about output dir existence
+
+	var wstream = fs.createWriteStream(fileOutputPath);
+
+	jsonfile.readFile(fileInputPath, function(err, obj) {
 
 	  let arrPromises = [];
 	  // console.dir(obj)
@@ -122,7 +124,7 @@ function doDumpDbIntoFile(){
 	});
 }
 
-doDumpDbIntoFile();
+doDumpDbIntoFile(fileInput, fileOutput);
 
 
 

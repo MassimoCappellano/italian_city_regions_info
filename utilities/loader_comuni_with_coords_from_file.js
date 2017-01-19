@@ -11,7 +11,7 @@ var util = require('util');
 
 var path = require('path');
 
-var file = path.join(__dirname, '../output/comuni_italiani_with_coords.json');
+var file = path.join(__dirname, '../input/comuni_italiani_with_coords.json');
 
 const db = require('../lib/db_creator').getDb();
 
