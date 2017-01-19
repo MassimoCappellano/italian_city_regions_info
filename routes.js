@@ -13,6 +13,64 @@ const responseModelListMunicipies = Joi.array().items(Joi.object({
 })).label('Result infos list cities');
 
 /*
+	"geometry": {
+		    "bounds": {
+		      "northeast": {
+		        "lat": 45.6430867,
+		        "lng": 8.8042525
+		      },
+		      "southwest": {
+		        "lat": 45.6027756,
+		        "lng": 8.7624716
+		      }
+		    },
+		    "location": {
+		      "lat": 45.6260364,
+		      "lng": 8.7870324
+		    },
+		    "location_type": "APPROXIMATE",
+		    "viewport": {
+		      "northeast": {
+		        "lat": 45.6430867,
+		        "lng": 8.8042525
+		      },
+		      "southwest": {
+		        "lat": 45.6027756,
+		        "lng": 8.7624716
+		      }
+		    }
+  }
+
+
+*/
+
+const pointModel = Joi.object({
+
+	lat: Joi.number().required().description('latitudo'),
+	lng: Joi.number().required().description('longitudo')
+
+});
+
+const areaModel = Joi.object({
+
+		northeast: pointModel.required().label('NE point'),
+		southwest: pointModel.required().label('SW point')
+
+	});
+
+const geometryModel = Joi.object({
+
+	bounds: areaModel.required().label('Bounds area'),
+	
+	location: pointModel.required().label('Location point'),
+	
+	location_type: Joi.string().required(),
+	
+	viewport: areaModel.required().label('View area')
+});
+
+
+/*
 	"name": "Samarate",
   "codice_istat": 12118,
   "codice_catastale": "H736",
@@ -39,7 +97,7 @@ const responseModelMunicipality = Joi.object({
     popolazione: Joi.number().integer().required().allow(null).description('number of citizen'),
 
     place_id: Joi.string().optional().description('ID in GMAP'),
-    geometry: Joi.object().optional().description('geometry coord')
+    geometry: geometryModel.optional().label('Geometry city area')
 
 }).label('Result City info');
 
@@ -53,12 +111,14 @@ const responseModelMunicipality = Joi.object({
 */
 
 const responseModelProvince = Joi.object({
+
 	name: Joi.string().required().description('name of province'),
 	code: Joi.string().length(2).required().description('code of province - 2 chars'),
 	regione_id: Joi.number().integer().required().description('pk of region'),
 
 	place_id: Joi.string().optional().description('ID in GMAP'),
-    geometry: Joi.object().optional().description('geometry coord')
+    geometry: geometryModel.optional().label('Geometry province area')
+
 }).label('Result Province info');
 
 
@@ -69,10 +129,12 @@ const responseModelProvince = Joi.object({
 */
 
 const responseModelRegion = Joi.object({
+
 	name: Joi.string().required().description('name of region'),
 
 	place_id: Joi.string().optional().description('ID in GMAP'),
-    geometry: Joi.object().optional().description('geometry coord')
+    geometry: geometryModel.optional().label('Geometry region area')
+
 }).label('Result Region info');;
 
 module.exports = [{
