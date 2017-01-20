@@ -6,11 +6,13 @@ const Assets = require('./handlers/assets');
 
 const fc = require('./lib/find_comune');
 
-const responseModelListMunicipies = Joi.array().items(Joi.object({
+const municipalityItem = Joi.object({
     n: Joi.string().required().description('name of city'),
     c: Joi.number().integer().required().description('pk for search city info'),
     pc: Joi.string().required().description('code province')
-})).label('Result infos list cities');
+}).label('MunicipalityItem');
+
+const responseModelListMunicipies = Joi.array().items(municipalityItem).label('Result infos list cities');
 
 /*
 	"geometry": {
@@ -49,7 +51,7 @@ const pointModel = Joi.object({
 	lat: Joi.number().required().description('latitudo'),
 	lng: Joi.number().required().description('longitudo')
 
-});
+}).label('Location point');
 
 const areaModel = Joi.object({
 
@@ -62,9 +64,9 @@ const geometryModel = Joi.object({
 
 	bounds: areaModel.required().label('Bounds area'),
 	
-	location: pointModel.required().label('Location point'),
+	location: pointModel.required(),
 	
-	location_type: Joi.string().required(),
+	location_type: Joi.string().description('Location type').required(),
 	
 	viewport: areaModel.required().label('View area')
 });
