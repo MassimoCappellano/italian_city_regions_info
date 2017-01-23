@@ -181,7 +181,7 @@ module.exports = [{
         notes: 'Returns list of all municipies',
         response: {schema: responseModelListMunicipies}
         }	
-}, {
+}, { 
 	method: 'GET',
 	path: '/comuni/{name}',
 	handler: function (request, reply) {
@@ -211,7 +211,7 @@ module.exports = [{
         response: { schema: responseModelListMunicipies }, 
         validate: {
 			params: {
-				name: Joi.string()
+				name: Joi.string().required().description('start name of city')
 			}
 		}
 	}	
@@ -242,7 +242,7 @@ module.exports = [{
 		response: { schema: responseModelMunicipality }, 
 		validate: {
 			params: {
-				idMunicipality: Joi.number().integer().min(1)
+				idMunicipality: Joi.number().integer().required().min(1).description('id of the city')
 			}
 		}
 	}
@@ -274,7 +274,7 @@ module.exports = [{
         response: { schema: responseModelProvince }, 
 		validate: {
 			params: {
-				idProvince: Joi.number().integer().min(1)
+				idProvince: Joi.number().integer().required().min(1).description('id of the province')
 			}
 		}
 	}
@@ -306,9 +306,15 @@ module.exports = [{
         response: { schema: responseModelRegion }, 
 		validate: {
 			params: {
-				idRegion: Joi.number().integer().min(1)
+				idRegion: Joi.number().integer().required().min(1).description('id of region')
 			}
 		}
+	}
+}, {
+	method: 'GET',
+	path: '/doc',
+	handler: function (request, reply) {
+		return reply.view('docPage', {}, { layout: 'layout_swagger'});
 	}
 },
 {

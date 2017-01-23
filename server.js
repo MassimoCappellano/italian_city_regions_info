@@ -37,6 +37,9 @@ server.ext('onPreResponse', (request, reply) => {
 const options = {
 	cors: true,
 	produces: ['application/json'],
+	consumes: ['application/json'],
+	documentationPage: true,
+    swaggerUI: false,
     info: {
             'title': 'Test API Documentation',
             'version': Pack.version,
