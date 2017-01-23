@@ -10,21 +10,27 @@ const jsonfile = require('jsonfile');
 const util = require('util');
 const path = require('path');
 const Promise = require('bluebird');
-const fs = require('fs');
+const fs = require('fs-extra');
 
-const fileInput = path.join(__dirname, '..','./data/comuni_italiani.json');
+const fileInput = path.join(__dirname, '../data/comuni_italiani.json');
 
 const db = require('../lib/db_creator').getDb();
 
-function checkDirectorySync(directory) {  
-  try {
-    fs.statSync(directory);
-  } catch(e) {
-    fs.mkdirSync(directory);
-  }
-}
+var fileOutput = path.join(__dirname, '../output/comuni_italiani_with_coords.json');
 
-var fileOutput = path.join(__dirname, '..', './output/comuni_italiani_with_coords.json');
+
+function checkExistenceOrCreateDir(dirname) {
+
+	return new Promise( function( resolve, reject) {
+		fs.ensureDir(dirname, function (err) {
+  			if(err) {
+  				return reject (err);
+  			}
+
+  			return resolve();
+		});
+	});
+}
 
 function dbGetPromise(value, key) {
 	 return new Promise( function( resolve, reject) {
@@ -61,66 +67,73 @@ function dbGetPromise(value, key) {
 */
 
 function doDumpDbIntoFile(fileInputPath, fileOutputPath){
+	
+	const dirOutputPath = path.dirname(fileOutputPath);
 
-	//TODO check about output dir existence
+	// check the existance or create dirOutputPath
 
-	var wstream = fs.createWriteStream(fileOutputPath);
+	checkExistenceOrCreateDir(dirOutputPath).then( function() {
 
-	jsonfile.readFile(fileInputPath, function(err, obj) {
+		var wstream = fs.createWriteStream(fileOutputPath);
 
-	  let arrPromises = [];
-	  // console.dir(obj)
-	  let wc = 1;
-	   
-	  console.time('100-elements');
+		jsonfile.readFile(fileInputPath, function(err, obj) {
 
-	  for (let value of obj){
-	  	// console.dir(value);
-	  	
-	  	if(value.model === 'comuni_italiani.regione'){
-			
-			let keyInv = 'inv:regioni:' + value.pk;
+		  let arrPromises = [];
+		  // console.dir(obj)
+		  let wc = 1;
+		   
+		  console.time('100-elements');
 
-			let p = dbGetPromise(value, keyInv);
-			arrPromises.push(p);
+		  for (let value of obj){
+		  	// console.dir(value);
+		  	
+		  	if(value.model === 'comuni_italiani.regione'){
+				
+				let keyInv = 'inv:regioni:' + value.pk;
 
-	  		
-	  	} else if (value.model === 'comuni_italiani.provincia') {
-			
-			let keyInv = 'inv:province:' + value.pk;
-			
-			let p = dbGetPromise(value, keyInv);
-			arrPromises.push(p);
+				let p = dbGetPromise(value, keyInv);
+				arrPromises.push(p);
 
-	  		
-	  	} else if (value.model === 'comuni_italiani.comune') {
-			
-			let keyInv = 'inv:comuni:' + value.pk;
-			
-			let p = dbGetPromise(value, keyInv);
-			arrPromises.push(p);
+		  		
+		  	} else if (value.model === 'comuni_italiani.provincia') {
+				
+				let keyInv = 'inv:province:' + value.pk;
+				
+				let p = dbGetPromise(value, keyInv);
+				arrPromises.push(p);
 
-	  		
-	  	}
-	  }
+		  		
+		  	} else if (value.model === 'comuni_italiani.comune') {
+				
+				let keyInv = 'inv:comuni:' + value.pk;
+				
+				let p = dbGetPromise(value, keyInv);
+				arrPromises.push(p);
 
-	  console.log('************** WORKING PROMISES **********************');
+		  		
+		  	}
+		  }
 
-	  // console.log('*****', arrPromises);
-	  
-	  var objTot = [];
+		  console.log('************** WORKING PROMISES **********************');
 
-	  Promise.mapSeries(arrPromises, function (item) {
-		// console.log('---------------> ', item);
-		objTot.push(item);
-	  }).then(function(){
-	  	console.log('WRITE STREAM!!!');
-	  	wstream.write(JSON.stringify(objTot, null, ' '));
-	  });
+		  // console.log('*****', arrPromises);
+		  
+		  var objTot = [];
+
+		  Promise.mapSeries(arrPromises, function (item) {
+			// console.log('---------------> ', item);
+			objTot.push(item);
+		  }).then(function(){
+		  	console.log('WRITE STREAM!!!');
+		  	wstream.write(JSON.stringify(objTot, null, ' '));
+		  });
 
 
-	  console.time('beforeWrite');
-	  
+		  console.time('beforeWrite');
+		  
+		});
+	}, function (err) {
+		console.log(err);
 	});
 }
 
