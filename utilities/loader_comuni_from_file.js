@@ -11,7 +11,7 @@ var util = require('util');
 
 var path = require('path');
 
-var file = path.join(__dirname, '..', '/data/comuni_italiani.json');
+var file = path.join(__dirname, '../data/comuni_italiani.json');
 
 const db = require('../lib/db_creator').getDb();
 

@@ -10,31 +10,34 @@ const server = new Hapi.Server();
 
 server.connection({ port: (process.env.PORT || 5000) });
 
-/*
-
-server.bind({
-	SessionManager: SessionManager
-});
-
-server.ext('onPreResponse', (request, reply) => {
-
-    if (request.response.isBoom) {
-        const err = request.response;
-        const errName = err.output.payload.error;
-        const statusCode = err.output.payload.statusCode;
-
-        return reply.view('error', {
-            statusCode: statusCode,
-            errName: errName
-        })
-        .code(statusCode);
+const optionsGood = {
+    ops: {
+        interval: 10000
+    },
+    reporters: {
+        myConsoleReporter: [{
+            module: 'good-squeeze',
+            name: 'Squeeze',
+            args: [{ log: '*', response: '*' }]
+        }, {
+            module: 'good-console'
+        }, 'stdout'],
+        myFileReporter: [{
+            module: 'good-squeeze',
+            name: 'Squeeze',
+            args: [{ log: '*' }]
+        }, {
+            module: 'good-squeeze',
+            name: 'SafeJson'
+        }, {
+            module: 'good-file',
+            args: ['./logs/server.log']
+        }]
     }
+};
 
-    reply.continue();
-});
-*/
 
-const options = {
+const optionsSwagger = {
 	cors: true,
 	produces: ['application/json'],
 	consumes: ['application/json'],
@@ -50,8 +53,12 @@ server.register([
 	require('inert'),
 	require('vision'),
 	{
+		'register': require('good'),
+		'options': optionsGood
+	},
+	{
         'register': HapiSwagger,
-        'options': options
+        'options': optionsSwagger
     }], (err) => {
 		if(err) {
 			throw err;
@@ -104,7 +111,7 @@ server.register([
 		    if (err) {
 		        throw err;
 		    }
-		    console.log('Server listening at CUSTOMER:', server.info.uri);
+		    server.log('info', 'Server listening at CUSTOMER: ' + server.info.uri);
 		});
 
 });

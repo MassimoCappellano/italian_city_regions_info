@@ -11,13 +11,21 @@ const util = require('util');
 const path = require('path');
 const Promise = require('bluebird');
 const fs = require('fs-extra');
+const moment = require('moment');
+const winston = require('winston');
 
 const fileInput = path.join(__dirname, '../data/comuni_italiani.json');
 
 const db = require('../lib/db_creator').getDb();
 
-var fileOutput = path.join(__dirname, '../output/comuni_italiani_with_coords.json');
+winston.configure({
+    transports: [
+      new (winston.transports.Console)( { level: 'info' }),
+      new (require('winston-daily-rotate-file'))({ filename: './logs/dumpu_comuni_info.log', level: 'debug' })
+    ]
+  });
 
+var fileOutput = path.join(__dirname, '../output/comuni_italiani_with_coords.json');
 
 function checkExistenceOrCreateDir(dirname) {
 
@@ -74,6 +82,8 @@ function doDumpDbIntoFile(fileInputPath, fileOutputPath){
 
 	checkExistenceOrCreateDir(dirOutputPath).then( function() {
 
+		const mNow = moment();
+
 		var wstream = fs.createWriteStream(fileOutputPath);
 
 		jsonfile.readFile(fileInputPath, function(err, obj) {
@@ -82,8 +92,6 @@ function doDumpDbIntoFile(fileInputPath, fileOutputPath){
 		  // console.dir(obj)
 		  let wc = 1;
 		   
-		  console.time('100-elements');
-
 		  for (let value of obj){
 		  	// console.dir(value);
 		  	
@@ -114,7 +122,7 @@ function doDumpDbIntoFile(fileInputPath, fileOutputPath){
 		  	}
 		  }
 
-		  console.log('************** WORKING PROMISES **********************');
+		  winston.info('************** DONE LOADING FROM DB **********************');
 
 		  // console.log('*****', arrPromises);
 		  
@@ -124,16 +132,22 @@ function doDumpDbIntoFile(fileInputPath, fileOutputPath){
 			// console.log('---------------> ', item);
 			objTot.push(item);
 		  }).then(function(){
-		  	console.log('WRITE STREAM!!!');
+
+		  	winston.info('WRITING TO FILE: %s', fileOutput);
 		  	wstream.write(JSON.stringify(objTot, null, ' '));
+		  	wstream.close();
+
+		  	const mThen = moment();
+			var durationInMillSec = moment.duration(mThen.diff(mNow)).milliseconds();
+
+		  	winston.info('************** DONE SAVING - FINISHED PROCESSING IN %d ms **********************', durationInMillSec);
 		  });
 
 
-		  console.time('beforeWrite');
-		  
+		  		  
 		});
 	}, function (err) {
-		console.log(err);
+		winston.error(err);
 	});
 }
 
