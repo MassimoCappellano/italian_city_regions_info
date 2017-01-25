@@ -6,12 +6,23 @@
  * @author Massimo Cappellano 
  */
 
-var jsonfile = require('jsonfile');
-var util = require('util');
+const jsonfile = require('jsonfile');
+const util = require('util');
+const moment = require('moment');
 
-var path = require('path');
+const path = require('path');
+const winston = require('winston');
 
-var file = path.join(__dirname, '../input/comuni_italiani_with_coords.json');
+const PATH_FILE_INFO_ITALIAN_MUNICIPALITIES_WITH_COORDS = './input/comuni_italiani_with_coords.json';
+
+const LOG_FILE = './logs/loader_comuni_with_coords_from_file.log';
+
+winston.configure({
+    transports: [
+      new (winston.transports.Console)( { level: 'info' }),
+      new (require('winston-daily-rotate-file'))({ filename: LOG_FILE, level: 'debug' })
+    ]
+  });
 
 const db = require('../lib/db_creator').getDb();
 
@@ -22,13 +33,15 @@ const db = require('../lib/db_creator').getDb();
 
 function doLoadDBMunicipalitiesWithCoord(jsonFile) {
 
+	const mNow = moment();
+
+	winston.info('*** STARTING LOADING %s FILE MUNICIPALITIES WITH COORDS into DB ***', jsonFile);
+
 	jsonfile.readFile(jsonFile, function(err, obj) {
 	  // console.dir(obj)
 	  let wc = 1;
 	  var batch = db.batch();
 	  
-	  console.time('100-elements');
-
 	  for (let value of obj){
 	  	// console.dir(value);
 	  	
@@ -39,7 +52,7 @@ function doLoadDBMunicipalitiesWithCoord(jsonFile) {
 			
 			let objReg = { value: valueR };
 
-			console.log('reg: %s -> ', key, objReg);
+			winston.debug('reg: %s -> %j', key, objReg);
 			
 			batch.put(key, objReg);
 
@@ -53,17 +66,10 @@ function doLoadDBMunicipalitiesWithCoord(jsonFile) {
 				objRegInv.geometry = value.geometry;
 			}
 
-			console.log('reg inv: %s -> ', keyInv, objRegInv);
+			winston.debug('reg inv: %s -> %j', keyInv, objRegInv);
 
 			batch.put(keyInv, objRegInv);
 			
-			/*
-				let regione = new model.Regione({ pk: value.pk, name: value.fields.name });
-				regione.save(function (err, regione) {
-				  if (err) return console.error(regione);
-				});
-			*/
-	  		
 	  	} else if (value.model === 'comuni_italiani.provincia') {
 			
 			let key = 'province:' + value.fields.name;
@@ -87,25 +93,16 @@ function doLoadDBMunicipalitiesWithCoord(jsonFile) {
 				obj.geometry = value.geometry;
 			}
 
-			console.log('prov: %s -> ', keyInv, obj);
+			winston.debug('prov: %s -> %j', keyInv, obj);
 			
 			batch.put(keyInv,  obj);
 
-			/*
-	  		let provincia = new model.Provincia({ pk: value.pk, name: value.fields.name, 
-	  			code: value.fields.codice_targa, regione_id: value.fields.regione });
-	  		
-	  		provincia.save(function (err, provincia) {
-			  if (err) return console.error(provincia);
-			});
-			*/
-	  		
 	  	} else if (value.model === 'comuni_italiani.comune') {
 			
 			let key = 'comuni:' + value.fields.name;
 			let valueC = value.pk;
 			
-			console.log('comuni: %s -> %s', key, valueC);
+			winston.debug('comuni: %s -> %s', key, valueC);
 			
 			batch.put(key, valueC);
 
@@ -136,34 +133,24 @@ function doLoadDBMunicipalitiesWithCoord(jsonFile) {
 				obj.geometry = value.geometry;
 			}
 			
-			console.log('comuni inv: %s -> ', keyInv, obj);
+			winston.debug('comuni inv: %s -> %j', keyInv, obj);
 			
 			batch.put(keyInv,  obj);
-
-			/*
-	  		let comune = new model.Comune({ pk: value.pk, name: value.fields.name, provincia_id: value.fields.provincia, 
-	  			altitudine: value.fields.altitudine, superficie: value.fields.superficie, popolazione: value.fields.popolazione });
-	  		
-	  		comune.save(function (err, comune) {
-			  if (err) return console.error(comune);
-			});
-			*/
 	  		
 	  	}
 	  }
 
-	  console.time('beforeWrite');
-	  
 	  batch.write();
 	  
-	  console.timeEnd('beforeWrite');
-	  
-	  console.timeEnd('100-elements');
+	  const mThen = moment();
+	  var durationInMillSec = moment.duration(mThen.diff(mNow)).milliseconds();
+
+	  winston.info('**** FINISHED LOADING INTO DB IN %d ms ****', durationInMillSec);
 
 	});
 }
 
 // do operation
-doLoadDBMunicipalitiesWithCoord(file);
+doLoadDBMunicipalitiesWithCoord(PATH_FILE_INFO_ITALIAN_MUNICIPALITIES_WITH_COORDS);
 
 

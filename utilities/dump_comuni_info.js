@@ -7,25 +7,25 @@
  */
 
 const jsonfile = require('jsonfile');
-const util = require('util');
 const path = require('path');
 const Promise = require('bluebird');
 const fs = require('fs-extra');
 const moment = require('moment');
 const winston = require('winston');
 
-const fileInput = path.join(__dirname, '../data/comuni_italiani.json');
+const PATH_FILE_INPUT_COMUNI_ITALIANI = './data/comuni_italiani.json';
+const PATH_FILE_OUTPUTT_COMUNI_ITALIANI_WITH_COORDS = './output/comuni_italiani_with_coords.json';
 
-const db = require('../lib/db_creator').getDb();
+const LOG_FILE =  './logs/dumpu_comuni_info.log';
 
 winston.configure({
     transports: [
       new (winston.transports.Console)( { level: 'info' }),
-      new (require('winston-daily-rotate-file'))({ filename: './logs/dumpu_comuni_info.log', level: 'debug' })
+      new (require('winston-daily-rotate-file'))({ filename: LOG_FILE, level: 'debug' })
     ]
   });
 
-var fileOutput = path.join(__dirname, '../output/comuni_italiani_with_coords.json');
+const db = require('../lib/db_creator').getDb();
 
 function checkExistenceOrCreateDir(dirname) {
 
@@ -75,6 +75,8 @@ function dbGetPromise(value, key) {
 */
 
 function doDumpDbIntoFile(fileInputPath, fileOutputPath){
+
+	winston.debug('INPUT FILE: %s, OUTPUT_FILE: %s', fileInputPath, fileOutputPath);
 	
 	const dirOutputPath = path.dirname(fileOutputPath);
 
@@ -133,7 +135,7 @@ function doDumpDbIntoFile(fileInputPath, fileOutputPath){
 			objTot.push(item);
 		  }).then(function(){
 
-		  	winston.info('WRITING TO FILE: %s', fileOutput);
+		  	winston.info('WRITING TO FILE: %s', fileOutputPath);
 		  	wstream.write(JSON.stringify(objTot, null, ' '));
 		  	wstream.close();
 
@@ -151,7 +153,7 @@ function doDumpDbIntoFile(fileInputPath, fileOutputPath){
 	});
 }
 
-doDumpDbIntoFile(fileInput, fileOutput);
+doDumpDbIntoFile(PATH_FILE_INPUT_COMUNI_ITALIANI, PATH_FILE_OUTPUTT_COMUNI_ITALIANI_WITH_COORDS);
 
 
 

@@ -11,6 +11,8 @@ out
 
 out/*
 
+logs/*
+
 .env
 
 
