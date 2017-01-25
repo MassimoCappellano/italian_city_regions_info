@@ -9,11 +9,20 @@
 const path = require('path');
 const Promise = require('bluebird');
 const level = require('level');
+const winston = require('winston');
+
+const LOG_FILE = './logs/loader_coordinates_from_GMAP_services.log';
+
+winston.configure({
+    transports: [
+      new (winston.transports.Console)( { level: 'info' }),
+      new (require('winston-daily-rotate-file'))({ filename: LOG_FILE, level: 'debug' })
+    ]
+  });
 
 const mo = require('../lib/map_operations');
 
 const getGeoCoordinates = require('../lib/geo/get_geocoordinates');
-
 const findComune = require('../lib/find_comune');
 
 const db = require('../lib/db_creator').getDb();
@@ -56,10 +65,10 @@ function doLoadCoordRegions() {
 
 						if( !regionInfo.place_id) {
 
-							console.log('DOING REQUEST, RN:', nameRegion, 'KR:', keyRegion);
+							winston.debug('DOING REQUEST, RN: %s, KR: %d', nameRegion, keyRegion);
 
 							return getGeoCoordinates.getRegionCoordinates(nameRegion).catch( function ignore(err) {
-									console.log(err);
+									winston.error(err);
 							}).then( function (coord) {
 								// for undefined
 								if(coord) {
@@ -71,7 +80,7 @@ function doLoadCoordRegions() {
 							});
 						} else {
 							// yet with coord on db
-							console.log('** RN:', nameRegion, 'KR:', keyRegion, 'place_id:', regionInfo.place_id);
+							winston.debug('** RN: %s, KR: %d, place_id: %s', nameRegion, keyRegion, regionInfo.place_id);
 						}
 					});
 					
