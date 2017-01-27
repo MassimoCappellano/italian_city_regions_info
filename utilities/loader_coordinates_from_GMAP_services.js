@@ -15,8 +15,8 @@ const LOG_FILE = './logs/loader_coordinates_from_GMAP_services.log';
 
 winston.configure({
     transports: [
-      new (winston.transports.Console)( { level: 'info' }),
-      new (require('winston-daily-rotate-file'))({ filename: LOG_FILE, level: 'debug' })
+      new (winston.transports.Console)( { level: 'info', prettyPrint: true, colorize: true }),
+      new (require('winston-daily-rotate-file'))({ filename: LOG_FILE, level: 'debug', prettyPrint: true, colorize: true })
     ]
   });
 
@@ -51,6 +51,8 @@ function dbPutPromise(db, key, value){
 
 function doLoadCoordRegions() {
 
+	winston.info('*** STARTED LODING COORDS FOR REGIONS ***');
+
 	mo.getElencoRegioni().then(
 
 	       function (regions) {
@@ -74,6 +76,8 @@ function doLoadCoordRegions() {
 								if(coord) {
 									coord.nameRegion = nameRegion;
 									coord.keyRegion = keyRegion;
+
+									winston.debug('coord: %j', coord);
 								}
 						
 								return coord;
@@ -104,7 +108,7 @@ function doLoadCoordRegions() {
 											db.put(keyInv, objReg);
 										},
 										function (error) {
-											console.log('ERROR GETTING GET_REGIONE_BY_CODE:', error);
+											winston.error('ERROR GETTING GET_REGIONE_BY_CODE: %s', error);
 										}
 
 
@@ -113,7 +117,7 @@ function doLoadCoordRegions() {
 					   }
 						
 					}).then(function() {
-						console.log('ALL DONE LOAD COORD REGIONS!!!');
+						winston.info('*** ALL DONE LOAD COORD REGIONS ***');
 					});
 
 
@@ -121,7 +125,7 @@ function doLoadCoordRegions() {
 
 			},
 			function (error) {
-				console.log(error);
+				winston.error(error);
 			}
 		);
 
@@ -140,6 +144,8 @@ function doLoadCoordRegions() {
 */
 function doLoadCoordProvinceByCodeRegion( codeRegion ) {
 
+	winston.info('*** START LOAD CODES PROVINCES BY CODE REGION: %d ***', codeRegion);
+
 	mo.getProvinceByCodeRegione(codeRegion).then(
 			function (provinces) {
 				
@@ -153,29 +159,30 @@ function doLoadCoordProvinceByCodeRegion( codeRegion ) {
 						
 					});
 
-				console.log('provinces: ', provinces);
+				winston.debug('provinces: %s', provinces);
 
 				Promise.map(provinces, function( province ) {
 
 					let codeProvince = province.code;
 					let keyProvince = province.provincia_id;
 
-					console.log('DOING REQUEST, codeProvince:', codeProvince, 'keyProvince:', keyProvince);
+					winston.debug('DOING REQUEST, codeProvince: %s, keyProvince: %d', codeProvince, keyProvince);
 
 					return getGeoCoordinates.getProvinceCoordinates(codeProvince).catch( function ignore(err) {
-						console.log('++++ ERROR:', err);
+						winston.error('++++ ERROR: %s', err);
 					}).then( function (coord) {
 						// for undefined
 						if(coord) {
 							coord.codeProvince = codeProvince;
 							coord.keyProvince = keyProvince;
+							winston.debug('COORD: %j', coord);
 						}
 						
 						return coord;
 					});
 				}).then( function (coordinatesProvinces) {
 
-					console.log('coordinatesProvinces:', coordinatesProvinces);
+					// console.log('coordinatesProvinces:', coordinatesProvinces);
 
 					return Promise.map(coordinatesProvinces, function(provinceCoord){
 
@@ -192,12 +199,12 @@ function doLoadCoordProvinceByCodeRegion( codeRegion ) {
 											objProv.place_id = provinceCoord.place_id;
 											objProv.geometry = provinceCoord.geometry;
 											
-											console.log('PUTTING:>>>', keyInv, '----->', objProv);
+											winston.debug('PUTTING:>>> %d -----> %j', provinceCoord.keyProvince, objProv);
 
 											db.put(keyInv, objProv);
 										},
 										function (error) {
-											console.log('ERROR GETTING GET_PROVINCE_BY_CODE:', error);
+											winston.error('ERROR GETTING GET_PROVINCE_BY_CODE: %s', error);
 										}
 
 
@@ -206,14 +213,14 @@ function doLoadCoordProvinceByCodeRegion( codeRegion ) {
 					   }
 						
 					}).then(function() {
-						console.log('ALL DONE LOAD COORD PROVINCES!!!');
+						winston.info('*** ALL DONE LOAD COORD PROVINCES ***');
 					});
 
 				});
 
 			},
 			function (err) {
-				console.log(err);
+				winston.error(err);
 			}
 
 		);
@@ -232,6 +239,8 @@ function doLoadCoordProvinceByCodeRegion( codeRegion ) {
 
 function doLoadCoordComuniByCodeRegion(codeRegion){
 
+	winston.info('*** START LOAD CODES MUNICIPALITIES BY CODE REGION: %d ***', codeRegion);
+
 	mo.getProvinceByCodeRegione(codeRegion).then(
 			function (provinces) {
 				
@@ -240,7 +249,7 @@ function doLoadCoordComuniByCodeRegion(codeRegion){
 					let codeProvince = province.code;
 					let keyProvince = province.provincia_id;
 
-					console.log('DOING REQUEST, RN:', codeProvince, 'KR:', keyProvince);
+					winston.debug('DOING REQUEST- RN: %s, KP: %d', codeProvince, keyProvince);
 
 					return mo.getComuniByCodeProvincia(keyProvince).then( function (listMunicipalities) {
 						
@@ -265,8 +274,7 @@ function doLoadCoordComuniByCodeRegion(codeRegion){
 						
 					});
 
-					console.log('MUNICIPALITIES to load COORD:', listMunicipalities.length, 'OF', totalMunicipalities); 
-
+					winston.debug('MUNICIPALITIES to load COORD: %d of %d', listMunicipalities.length, totalMunicipalities); 
 
 					// do block of for example 50
 					var blockListMunicipalities = [];
@@ -291,15 +299,15 @@ function doLoadCoordComuniByCodeRegion(codeRegion){
 
 					return Promise.mapSeries(blockListMunicipalities , function(listMunicipalities) {
 
-							console.log(listMunicipalities);
+							winston.debug(listMunicipalities);
 
 							return Promise.map(listMunicipalities, function(municipality){
 								var comune_id = municipality.comune_id;
 
-								console.log('--->>>>>> CALLING:', municipality.name, municipality.codeProvince);
+								winston.debug('--->>>>>> CALLING: %s, %s', municipality.name, municipality.codeProvince);
 
 								return getGeoCoordinates.getMunicipalityCoordinates(municipality.name, municipality.codeProvince).catch( function ignore(err) {
-					    					console.log('++++ ERROR', err);	
+					    					winston.error('++++ ERROR %s', err);	
 							    		}).then( function ( coordMunicipality ){
 
 									 		if(coordMunicipality){
@@ -309,13 +317,13 @@ function doLoadCoordComuniByCodeRegion(codeRegion){
 												objMun.place_id = coordMunicipality.place_id;
 												objMun.geometry = coordMunicipality.geometry;
 
-									 			let keyInv = 'inv:comuni:' + objMun.comune_id;
+									 			let keyInv = 'inv:comuni:' + comune_id;
 
 									 			// now redundant information
 									 			delete objMun.comune_id;
 									 			delete objMun.codeProvince;
 
-												console.log('PUTTING:>>>', keyInv, '----->', objMun);
+												winston.debug('PUTTING:>>> %d -----> %j', comune_id, objMun);
 
 									   			return dbPutPromise(db, keyInv, objMun);
 
@@ -326,24 +334,24 @@ function doLoadCoordComuniByCodeRegion(codeRegion){
 							});
 
 					}).then(function (loaded) {
-							console.log('NOW  LOADED ON DB!!!');
-                            console.log('N° BLOCKS: ', loaded.length);
+							winston.info('NOW  LOADED ON DB!!!');
+                            winston.info('N° BLOCKS: %d', loaded.length);
 
 							loaded.forEach( function(block) {
-								console.log(block);
+								winston.info(block);
 							});
 
-							console.log('**********************************');
+							winston.info('**********************************');
 
 						}, function (errors) {
-							console.log('ERRORS:', errors);
+							winston.error('ERRORS: %s', errors);
 						});
 
 				});
 
 			},
 			function (err) {
-				console.log(err);
+				winston.error(err);
 			}
 
 		);
@@ -353,7 +361,7 @@ function doLoadCoordComuniByCodeRegion(codeRegion){
 
 
 
-doLoadCoordRegions();
+
 
 // 1, 3, 4
 
@@ -415,6 +423,15 @@ doLoadCoordRegions();
 
 const arrReg = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20];
 
+// doLoadCoordRegions();
+
+// doLoadCoordProvinceByCodeRegion(3);
+
+doLoadCoordComuniByCodeRegion(2)
+
+// doLoadCoordComuniByCodeRegion(2);
+/*
+
 for (let i of arrReg){
 	console.log('REGION:', i);
 
@@ -423,3 +440,5 @@ for (let i of arrReg){
 }
 
 doLoadCoordComuniByCodeRegion(3);
+
+*/

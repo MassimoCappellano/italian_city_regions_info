@@ -19,7 +19,7 @@ const LOG_FILE = './logs/loader_comuni_with_coords_from_file.log';
 
 winston.configure({
     transports: [
-      new (winston.transports.Console)( { level: 'info' }),
+      new (winston.transports.Console)( { level: 'info', prettyPrint: true, colorize: true  }),
       new (require('winston-daily-rotate-file'))({ filename: LOG_FILE, level: 'debug' })
     ]
   });
